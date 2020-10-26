@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class VocabularyBookActivity extends AppCompatActivity {
+public class ProblemListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.vocabulary_book_list);
+        setContentView(R.layout.problem_list);
     }
 }

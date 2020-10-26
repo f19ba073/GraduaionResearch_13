@@ -16,6 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ProblemListActivity">
+        </activity>
+        <activity android:name=".VocabularyBookActivity">
+        </activity>
+        <activity android:name=".GamePlayActivity">
+        </activity>
     </application>
 
 </manifest>
