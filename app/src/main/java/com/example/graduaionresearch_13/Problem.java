@@ -1,12 +1,12 @@
 package com.example.graduaionresearch_13;
 
-public class problem {
+public class Problem {
     private int id;
     private String problem;
     private String answer;
     private int book_id;
 
-    public problem(int id,String problem,String answer,int book_id){
+    public Problem(int id, String problem, String answer, int book_id){
         this.id=id;
         this.problem=problem;
         this.answer=answer;
