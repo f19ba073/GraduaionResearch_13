@@ -13,4 +13,11 @@ public class DBNames {
     public static final String COLUMN_NAME_BOOK_ID = "book_id";
     public static final String COLUMN_NAME_TREE_POINT = "tree_point";
     public static final String COLUMN_NAME_TREE_VALUE = "tree_value";
+
+    public static final String[] PROBLEM_COLUMNS = {
+            COLUMN_NAME_PROBLEM_ID,
+            COLUMN_NAME_PROBLEM,
+            COLUMN_NAME_ANSWER,
+            COLUMN_NAME_BOOK_ID
+    };
 }

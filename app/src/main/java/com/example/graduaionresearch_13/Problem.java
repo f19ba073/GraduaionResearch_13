@@ -1,5 +1,14 @@
 package com.example.graduaionresearch_13;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.graduaionresearch_13.DBNames.*;
+
 public class Problem {
     private int id;
     private String problem;
@@ -11,6 +20,24 @@ public class Problem {
         this.problem=problem;
         this.answer=answer;
         this.book_id=book_id;
+    }
+
+    public static List<Problem> getList(Context context, int id){
+        List<Problem> list = new ArrayList<>();
+        DBOpenHelper helper = new DBOpenHelper(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        Cursor c = db.query(TABLE_NAME_PROBLEMS,PROBLEM_COLUMNS, COLUMN_NAME_BOOK_ID + " = " + id,
+                null, null, null,null);
+        if(c == null){return list;}
+        try{
+            while(c.moveToNext()){
+                list.add(new Problem(c.getInt(0),c.getString(1),
+                        c.getString(2),c.getInt(3)));
+            }
+        }finally {
+            c.close();
+        }
+        return list;
     }
 
     public int getId(){
