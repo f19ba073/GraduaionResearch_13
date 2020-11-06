@@ -6,24 +6,12 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import static com.example.graduaionresearch_13.DBNames.*;
 
 public class DBOpenHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "WordsAppDB.db";
-
-    private static final String TABLE_NAME_BOOKS = "BOOKS";
-    private static final String TABLE_NAME_PROBLEMS = "PROBLEMS";
-    private static final String TABLE_NAME_USER_PROFILE = "USER_PROFILE";
-
-    private static final String COLUMN_NAME_ID = "book_id";
-    private static final String COLUMN_NAME_BOOK_NAME = "book_name";
-    private static final String COLUMN_NAME_PROBLEM_ID = "problem_id";
-    private static final String COLUMN_NAME_PROBLEM = "problem";
-    private static final String COLUMN_NAME_ANSWER = "answer";
-    private static final String COLUMN_NAME_BOOK_ID = "book_id";
-    private static final String COLUMN_NAME_TREE_POINT = "tree_point";
-    private static final String COLUMN_NAME_TREE_VALUE = "tree_value";
 
     private static final String SQL_CREATE_BOOKS_TABLE = "CREATE TABLE " + TABLE_NAME_BOOKS +
             "(" + COLUMN_NAME_ID + " INTEGER PRIMARY KEY, " + COLUMN_NAME_BOOK_NAME + " TEXT)";
