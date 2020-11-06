@@ -47,7 +47,6 @@ public class ProblemAdapter extends BaseAdapter {
         holder.menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("onClick","子要素でクリックされました");
                 ((ListView) parent).performItemClick(view, position, R.id.problem_menu);
             }
         });
@@ -57,6 +56,12 @@ public class ProblemAdapter extends BaseAdapter {
 
     public void delete(int position){
         problemList.remove(position);
+    }
+
+    public void edit(int position, String problem, String answer){
+        Problem item = problemList.get(position);
+        item.setProblem(problem);
+        item.setAnswer(answer);
     }
 
     @Override

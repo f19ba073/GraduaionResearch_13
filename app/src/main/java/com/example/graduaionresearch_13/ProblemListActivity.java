@@ -5,9 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.*;
 
@@ -27,6 +32,7 @@ public class ProblemListActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.problem_listView);
         adapter = new ProblemAdapter(getApplicationContext(), R.layout.problem_row, problmes);
         listView.setAdapter(adapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -38,10 +44,10 @@ public class ProblemListActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which){
                                     case 0:
-                                        edit(position);
+                                        showEditDialog(position);
                                         break;
                                     case 1:
-                                        deleteCheck(position);
+                                        showDeleteCheck(position);
                                         break;
                                     case 2:
                                         break;
@@ -53,7 +59,8 @@ public class ProblemListActivity extends AppCompatActivity {
         });
     }
 
-    private void deleteCheck(final int position) {
+    //削除確認画面の出力
+    private void showDeleteCheck(final int position) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ProblemListActivity.this)
                 .setTitle("削除").setMessage("本当に削除しますか？");
 
@@ -73,18 +80,40 @@ public class ProblemListActivity extends AppCompatActivity {
         // AlertDialogのキャンセルができるように設定
         alertDialogBuilder.setCancelable(true);
 
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        // AlertDialogの表示
-        alertDialog.show();
+        alertDialogBuilder.create().show();
     }
 
+    //編集画面の出力
+    private void showEditDialog(final int position){
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View inputView = factory.inflate(R.layout.problem_text_diarog, null);
+
+        new AlertDialog.Builder(ProblemListActivity.this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("編集")
+                .setView(inputView)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        EditText problem = inputView.findViewById(R.id.dialog_edit_problem);
+                        EditText answer = inputView.findViewById(R.id.dialog_edit_answer);
+                        edit(position, problem.getText().toString(), answer.getText().toString());
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                    }
+                })
+                .create().show();
+    }
 
     private void delete(int position){
         adapter.delete(position);
         adapter.notifyDataSetChanged();
     }
 
-    private void edit(int position){
-
+    private void edit(int position, String problem, String answer){
+        adapter.edit(position,problem,answer);
+        adapter.notifyDataSetChanged();
     }
 }
