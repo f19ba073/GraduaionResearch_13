@@ -7,7 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class GamePlayActivity extends AppCompatActivity {
+    private final List<Problem> problmes = new ArrayList<>(Arrays.asList(
+            new Problem(1,"jvmとは","java仮想マシン",1),
+            new Problem(2,"jdkとは","java開発環境",1),
+            new Problem(3,"javacとは","コンパイル",1)
+    ));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,8 +27,7 @@ public class GamePlayActivity extends AppCompatActivity {
         start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), GameProduction.class);
-                startActivity(intent);
+                setContentView(R.layout.game_production);
             }
         });
     }
