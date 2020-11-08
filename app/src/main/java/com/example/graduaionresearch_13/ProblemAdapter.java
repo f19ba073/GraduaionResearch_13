@@ -54,11 +54,12 @@ public class ProblemAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void delete(int position){
+    public void delete(Context context, int position){
+        problemList.get(position).delete(context);
         problemList.remove(position);
     }
 
-    public void edit(int position, String problem, String answer){
+    public void edit(Context context, int position, String problem, String answer){
         Problem item = problemList.get(position);
         item.setProblem(problem);
         item.setAnswer(answer);

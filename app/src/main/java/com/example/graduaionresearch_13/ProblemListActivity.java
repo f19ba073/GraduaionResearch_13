@@ -17,6 +17,8 @@ import android.widget.TextView;
 import java.util.*;
 
 public class ProblemListActivity extends AppCompatActivity {
+
+    //テストデータ
     private List<Problem> problmes = new ArrayList<>(Arrays.asList(
             new Problem(1,"jvmとは","java仮想マシン",1),
             new Problem(2,"jdkとは","java開発環境",1),
@@ -29,6 +31,8 @@ public class ProblemListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.problem_list);
 
+        //データベースからデータ取得
+        //problmes = Problem.getList(getApplication(), 1);
         ListView listView = (ListView) findViewById(R.id.problem_listView);
         adapter = new ProblemAdapter(getApplicationContext(), R.layout.problem_row, problmes);
         listView.setAdapter(adapter);
@@ -53,7 +57,7 @@ public class ProblemListActivity extends AppCompatActivity {
                                         break;
                                 }
                             }
-                        })
+                        }).setCancelable(true)
                         .show();
             }
         });
@@ -108,12 +112,12 @@ public class ProblemListActivity extends AppCompatActivity {
     }
 
     private void delete(int position){
-        adapter.delete(position);
+        adapter.delete(getApplication(), position);
         adapter.notifyDataSetChanged();
     }
 
     private void edit(int position, String problem, String answer){
-        adapter.edit(position,problem,answer);
+        adapter.edit(getApplication(), position, problem, answer);
         adapter.notifyDataSetChanged();
     }
 }

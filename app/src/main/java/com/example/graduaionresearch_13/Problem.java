@@ -40,6 +40,13 @@ public class Problem {
         return list;
     }
 
+    public void delete(Context context){
+        DBOpenHelper helper = new DBOpenHelper(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        db.delete(TABLE_NAME_PROBLEMS,COLUMN_NAME_PROBLEM_ID + " = ?",
+                new String[]{String.valueOf(this.id)});
+    }
+
     public int getId(){
         return this.id;
     }
