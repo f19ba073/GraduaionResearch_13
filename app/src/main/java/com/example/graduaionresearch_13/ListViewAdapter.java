@@ -20,11 +20,11 @@ public class ListViewAdapter extends BaseAdapter{
 
     private LayoutInflater inflater;
     private int itemLayoutId;
-    private List<String> titles;
+    private List<VocabularyBook> titles;
 
     ListViewAdapter(Context context,
                     int itemLayoutId,
-                    List<String> itemNames) {
+                    List<VocabularyBook> itemNames) {
         super();
         this.inflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -51,7 +51,7 @@ public class ListViewAdapter extends BaseAdapter{
         }
 
         // 現在の position にあるファイル名リストを holder の textView にセット
-        holder.textView.setText(titles.get(position));
+        holder.textView.setText(titles.get(position).getBook_name());
         holder.menuButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -71,12 +71,16 @@ public class ListViewAdapter extends BaseAdapter{
     }
 
     @Override
-    public Object getItem(int position) {
-        return position;
+    public VocabularyBook getItem(int position) {
+        return titles.get(position);
     }
 
     @Override
     public long getItemId(int position) {
         return position;
+    }
+
+    public void delete(int position){
+        titles.remove(position);
     }
 }
