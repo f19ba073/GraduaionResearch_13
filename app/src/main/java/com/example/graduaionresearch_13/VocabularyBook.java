@@ -4,17 +4,15 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_BOOK_ID;
 import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_BOOK_NAME;
 import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_ID;
-import static com.example.graduaionresearch_13.DBNames.PROBLEM_COLUMNS;
 import static com.example.graduaionresearch_13.DBNames.TABLE_NAME_BOOKS;
-import static com.example.graduaionresearch_13.DBNames.TABLE_NAME_PROBLEMS;
 
-public class VocabularyBook {
+public class VocabularyBook implements Serializable {
     private int book_id;
     private String book_name;
     
