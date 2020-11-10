@@ -63,6 +63,7 @@ public class ProblemAdapter extends BaseAdapter {
         Problem item = problemList.get(position);
         item.setProblem(problem);
         item.setAnswer(answer);
+        item.update(context);
     }
 
     @Override

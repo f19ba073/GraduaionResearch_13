@@ -1,5 +1,6 @@
 package com.example.graduaionresearch_13;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -45,6 +46,16 @@ public class Problem {
         SQLiteDatabase db = helper.getWritableDatabase();
         db.delete(TABLE_NAME_PROBLEMS,COLUMN_NAME_PROBLEM_ID + " = ?",
                 new String[]{String.valueOf(this.id)});
+    }
+
+    public void update(Context context){
+        DBOpenHelper helper = new DBOpenHelper(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_NAME_PROBLEM,this.problem);
+        contentValues.put(COLUMN_NAME_ANSWER,this.answer);
+        db.update(TABLE_NAME_PROBLEMS,contentValues,
+                COLUMN_NAME_PROBLEM_ID + " = " + this.getId(),null);
     }
 
     public int getId(){
