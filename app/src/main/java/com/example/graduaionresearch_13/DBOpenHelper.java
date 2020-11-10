@@ -62,6 +62,12 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
         bookValues.put(COLUMN_NAME_BOOK_NAME, "英語");
         db.insert(TABLE_NAME_BOOKS, null, bookValues);
+        bookValues.put(COLUMN_NAME_BOOK_NAME, "漢字　読み");
+        db.insert(TABLE_NAME_BOOKS, null, bookValues);
+        bookValues.put(COLUMN_NAME_BOOK_NAME, "化学基礎");
+        db.insert(TABLE_NAME_BOOKS, null, bookValues);
+        bookValues.put(COLUMN_NAME_BOOK_NAME, "日本史");
+        db.insert(TABLE_NAME_BOOKS, null, bookValues);
 
         problemValues.put(COLUMN_NAME_PROBLEM,"りんご");
         problemValues.put(COLUMN_NAME_ANSWER,"apple");
@@ -76,6 +82,44 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         problemValues.put(COLUMN_NAME_BOOK_ID,1);
         db.insert(TABLE_NAME_PROBLEMS,null,problemValues);
 
+        problemValues.put(COLUMN_NAME_PROBLEM,"捺印");
+        problemValues.put(COLUMN_NAME_ANSWER,"なついん");
+        problemValues.put(COLUMN_NAME_BOOK_ID,2);
+        db.insert(TABLE_NAME_PROBLEMS,null,problemValues);
+        problemValues.put(COLUMN_NAME_PROBLEM,"凄絶");
+        problemValues.put(COLUMN_NAME_ANSWER,"せいぜつ");
+        problemValues.put(COLUMN_NAME_BOOK_ID,2);
+        db.insert(TABLE_NAME_PROBLEMS,null,problemValues);
+        problemValues.put(COLUMN_NAME_PROBLEM,"補填");
+        problemValues.put(COLUMN_NAME_ANSWER,"ほてん");
+        problemValues.put(COLUMN_NAME_BOOK_ID,2);
+        db.insert(TABLE_NAME_PROBLEMS,null,problemValues);
 
+        problemValues.put(COLUMN_NAME_PROBLEM,"２種類以上の物質が混じり合っているもの。");
+        problemValues.put(COLUMN_NAME_ANSWER,"混合物");
+        problemValues.put(COLUMN_NAME_BOOK_ID,3);
+        db.insert(TABLE_NAME_PROBLEMS,null,problemValues);
+        problemValues.put(COLUMN_NAME_PROBLEM,"不純物を含んだ結晶を適当な液体に溶かし、" +
+                "温度による溶解度の変化や触媒を蒸発させる操作により、不純物を取り除いて純粋な結晶を得ること。");
+        problemValues.put(COLUMN_NAME_ANSWER,"再結晶");
+        problemValues.put(COLUMN_NAME_BOOK_ID,3);
+        db.insert(TABLE_NAME_PROBLEMS,null,problemValues);
+        problemValues.put(COLUMN_NAME_PROBLEM,"２種類以上の元素からなる物質。");
+        problemValues.put(COLUMN_NAME_ANSWER,"化合物");
+        problemValues.put(COLUMN_NAME_BOOK_ID,3);
+        db.insert(TABLE_NAME_PROBLEMS,null,problemValues);
+
+        problemValues.put(COLUMN_NAME_PROBLEM,"日本はかつて鎖国政策をとっていたが、琉球王国とどこの国とは外交関係を持っていたか。");
+        problemValues.put(COLUMN_NAME_ANSWER,"朝鮮");
+        problemValues.put(COLUMN_NAME_BOOK_ID,4);
+        db.insert(TABLE_NAME_PROBLEMS,null,problemValues);
+        problemValues.put(COLUMN_NAME_PROBLEM,"杉田玄白や前野良沢らによって、翻訳された本。");
+        problemValues.put(COLUMN_NAME_ANSWER,"解体新書");
+        problemValues.put(COLUMN_NAME_BOOK_ID,4);
+        db.insert(TABLE_NAME_PROBLEMS,null,problemValues);
+        problemValues.put(COLUMN_NAME_PROBLEM,"老中の水野忠邦が1841年に幕府の立て直しに着手したこと。");
+        problemValues.put(COLUMN_NAME_ANSWER,"天保の改革");
+        problemValues.put(COLUMN_NAME_BOOK_ID,4);
+        db.insert(TABLE_NAME_PROBLEMS,null,problemValues);
     }
 }
