@@ -32,7 +32,7 @@ public class ProblemListActivity extends AppCompatActivity {
         setContentView(R.layout.problem_list);
 
         //データベースからデータ取得
-        //problmes = Problem.getList(getApplication(), 1);
+        problmes = Problem.getList(getApplication(), 1);
         ListView listView = (ListView) findViewById(R.id.problem_listView);
         adapter = new ProblemAdapter(getApplicationContext(), R.layout.problem_row, problmes);
         listView.setAdapter(adapter);

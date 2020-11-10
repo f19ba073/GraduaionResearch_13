@@ -35,17 +35,11 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_PROBLEMS_TABLE);
         db.execSQL(SQL_CREATE_USER_PROFILE_TABLE);
 
-        ContentValues bookValues = new ContentValues();
-        ContentValues problemValues = new ContentValues();
         ContentValues profValues = new ContentValues();
-        bookValues.put(COLUMN_NAME_BOOK_NAME, "英語");
-        problemValues.put(COLUMN_NAME_PROBLEM,"JVMはなんの略？");
-        problemValues.put(COLUMN_NAME_ANSWER,"JavaVirtualMachine");
-        problemValues.put(COLUMN_NAME_BOOK_ID,1);
         profValues.put(COLUMN_NAME_TREE_POINT,0);
         profValues.put(COLUMN_NAME_TREE_VALUE,0);
-        db.insert(TABLE_NAME_BOOKS, null, bookValues);
-        db.insert(TABLE_NAME_PROBLEMS,null,problemValues);
+
+        putTestCase(db);
         db.insert(TABLE_NAME_USER_PROFILE,null,profValues);
     }
 
@@ -60,5 +54,28 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
+    }
+
+    private void putTestCase(SQLiteDatabase db){
+        ContentValues bookValues = new ContentValues();
+        ContentValues problemValues = new ContentValues();
+
+        bookValues.put(COLUMN_NAME_BOOK_NAME, "英語");
+        db.insert(TABLE_NAME_BOOKS, null, bookValues);
+
+        problemValues.put(COLUMN_NAME_PROBLEM,"りんご");
+        problemValues.put(COLUMN_NAME_ANSWER,"apple");
+        problemValues.put(COLUMN_NAME_BOOK_ID,1);
+        db.insert(TABLE_NAME_PROBLEMS,null,problemValues);
+        problemValues.put(COLUMN_NAME_PROBLEM,"みかん");
+        problemValues.put(COLUMN_NAME_ANSWER,"orange");
+        problemValues.put(COLUMN_NAME_BOOK_ID,1);
+        db.insert(TABLE_NAME_PROBLEMS,null,problemValues);
+        problemValues.put(COLUMN_NAME_PROBLEM,"バナナ");
+        problemValues.put(COLUMN_NAME_ANSWER,"banana");
+        problemValues.put(COLUMN_NAME_BOOK_ID,1);
+        db.insert(TABLE_NAME_PROBLEMS,null,problemValues);
+
+
     }
 }
