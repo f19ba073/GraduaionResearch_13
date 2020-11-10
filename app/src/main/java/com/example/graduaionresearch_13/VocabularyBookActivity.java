@@ -3,8 +3,10 @@ package com.example.graduaionresearch_13;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -51,7 +53,7 @@ public class VocabularyBookActivity extends AppCompatActivity {
                 if(R.id.menu != id){
                     return;
                 }
-                final String[] items = {"編集", "削除", "キャンセル"};
+                final String[] items = {"編集", "削除", "タイトル編集","キャンセル"};
                 new AlertDialog.Builder(VocabularyBookActivity.this)
                         .setTitle("Selector")
                         .setItems(items, new DialogInterface.OnClickListener() {
@@ -65,6 +67,9 @@ public class VocabularyBookActivity extends AppCompatActivity {
                                         showDeleteCheck(position);
                                         break;
                                     case 2:
+                                        showTitleEdit(position);
+                                        break;
+                                    case 3:
                                         break;
                                 }
                             }
@@ -111,6 +116,34 @@ public class VocabularyBookActivity extends AppCompatActivity {
         adapter.delete(position);
 
         // ListView の更新
+        adapter.notifyDataSetChanged();
+    }
+
+    //編集画面の出力
+    private void showTitleEdit(final int position){
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View inputView = factory.inflate(R.layout.vb_titleedit_diarog, null);
+
+        new android.app.AlertDialog.Builder(VocabularyBookActivity.this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("編集")
+                .setView(inputView)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        EditText title = inputView.findViewById(R.id.dialog_edit_title);
+                        edit(position, title.getText().toString());
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                    }
+                })
+                .create().show();
+    }
+
+    private void edit(int position, String title){
+        adapter.edit(getApplication(), position, title);
         adapter.notifyDataSetChanged();
     }
 }

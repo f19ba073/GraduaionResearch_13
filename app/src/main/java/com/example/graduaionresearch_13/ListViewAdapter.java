@@ -64,6 +64,11 @@ public class ListViewAdapter extends BaseAdapter{
 
     }
 
+    public void edit(Context context, int position, String title){
+        VocabularyBook item = titles.get(position);
+        item.setBook_name(title);
+    }
+
     @Override
     public int getCount() {
         // texts 配列の要素数
