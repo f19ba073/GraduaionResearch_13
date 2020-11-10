@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,20 +20,19 @@ import java.util.*;
 public class ProblemListActivity extends AppCompatActivity {
 
     //テストデータ
-    private List<Problem> problmes = new ArrayList<>(Arrays.asList(
-            new Problem(1,"jvmとは","java仮想マシン",1),
-            new Problem(2,"jdkとは","java開発環境",1),
-            new Problem(3,"javacとは","コンパイル",1)
-    ));
+    private List<Problem> problmes;
     private ProblemAdapter adapter;
+    private VocabularyBook currentVocabularyBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.problem_list);
+        Intent intent = getIntent();
+        currentVocabularyBook = (VocabularyBook)intent.getSerializableExtra("VocabularyBook");
 
         //データベースからデータ取得
-        problmes = Problem.getList(getApplication(), 1);
+        problmes = Problem.getList(getApplication(), currentVocabularyBook.getBook_id());
         ListView listView = (ListView) findViewById(R.id.problem_listView);
         adapter = new ProblemAdapter(getApplicationContext(), R.layout.problem_row, problmes);
         listView.setAdapter(adapter);
