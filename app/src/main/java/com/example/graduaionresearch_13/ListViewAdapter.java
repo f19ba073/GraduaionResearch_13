@@ -64,9 +64,15 @@ public class ListViewAdapter extends BaseAdapter{
 
     }
 
+    public void delete(Context context, int position){
+        titles.get(position).delete(context);
+        titles.remove(position);
+    }
+
     public void edit(Context context, int position, String title){
         VocabularyBook item = titles.get(position);
         item.setBook_name(title);
+        titles.get(position).update(context);
     }
 
     @Override
@@ -83,9 +89,5 @@ public class ListViewAdapter extends BaseAdapter{
     @Override
     public long getItemId(int position) {
         return position;
-    }
-
-    public void delete(int position){
-        titles.remove(position);
     }
 }

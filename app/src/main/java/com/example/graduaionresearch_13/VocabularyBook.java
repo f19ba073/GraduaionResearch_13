@@ -1,5 +1,6 @@
 package com.example.graduaionresearch_13;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,9 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_BOOK_NAME;
-import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_ID;
-import static com.example.graduaionresearch_13.DBNames.TABLE_NAME_BOOKS;
+import static com.example.graduaionresearch_13.DBNames.*;
 
 public class VocabularyBook implements Serializable {
     private int book_id;
@@ -37,6 +36,25 @@ public class VocabularyBook implements Serializable {
         }
         return list;
     }
+
+    public void delete(Context context){
+        DBOpenHelper helper = new DBOpenHelper(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        db.delete(TABLE_NAME_BOOKS,COLUMN_NAME_ID + " = ?",
+                new String[]{String.valueOf(this.book_id)});
+        db.delete(TABLE_NAME_PROBLEMS,COLUMN_NAME_ID + " = ?",
+                new String[]{String.valueOf(this.book_id)});
+    }
+
+    public void update(Context context){
+        DBOpenHelper helper = new DBOpenHelper(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_NAME_BOOK_NAME,this.book_name);
+        db.update(TABLE_NAME_BOOKS,contentValues,
+                COLUMN_NAME_ID + " = " + this.getBook_id(),null);
+    }
+
     public int getBook_id(){
         return this.book_id;
     }
