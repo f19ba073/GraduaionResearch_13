@@ -16,7 +16,9 @@
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
         android:layout_marginBottom="70dp"
-        android:text="start"
+        android:gravity="center_vertical|right"
+        android:drawableLeft="@drawable/start2"
+        android:text="start    "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/setting_button"
@@ -33,12 +35,23 @@
         android:layout_marginEnd="39dp"
         android:layout_marginRight="39dp"
         android:layout_marginBottom="70dp"
-        android:text="設定"
+        android:gravity="center_vertical|right"
+        android:drawableLeft="@drawable/hagu"
+        android:text="設定      "
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/start_button"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="282dp"
+        android:layout_height="444dp"
+        app:srcCompat="@drawable/faketree"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="64dp"
+        tools:layout_editor_absoluteY="41dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
