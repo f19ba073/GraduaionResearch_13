@@ -12,8 +12,6 @@ import android.widget.ListView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class VocabularyBookActivity extends AppCompatActivity {
@@ -25,16 +23,15 @@ public class VocabularyBookActivity extends AppCompatActivity {
     // タップされたitemの位置
     private int tappedPosition = 0;
     //サンプルデータ
-    List<VocabularyBook> scenes = new ArrayList<>(Arrays.asList(
-            new VocabularyBook(1,"現国"),
-            new VocabularyBook(2,"数学Ⅲ"),
-            new VocabularyBook(3,"世界史")
-    ));
+    List<VocabularyBook> scenes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vocabulary_book_list);
+
+        //DBからデータを取得
+        scenes = VocabularyBook.getList(getApplication());
 
         // ListViewのインスタンスを生成
         ListView listView = (ListView) findViewById(R.id.listView);
@@ -113,7 +110,7 @@ public class VocabularyBookActivity extends AppCompatActivity {
     //削除処理
     private void deleteItem(int position) {
         // それぞれの要素を削除
-        adapter.delete(position);
+        adapter.delete(getApplication(), position);
 
         // ListView の更新
         adapter.notifyDataSetChanged();
