@@ -1,6 +1,8 @@
 package com.example.graduaionresearch_13;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.*;
+
+import static com.example.graduaionresearch_13.DBNames.*;
 
 public class ProblemAdapter extends BaseAdapter {
     private LayoutInflater inflater;
@@ -64,6 +68,18 @@ public class ProblemAdapter extends BaseAdapter {
         item.setProblem(problem);
         item.setAnswer(answer);
         item.update(context);
+    }
+
+    public void add(Context context, String problem, String answer, int id){
+        DBOpenHelper helper = new DBOpenHelper(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_PROBLEM,problem);
+        values.put(COLUMN_NAME_ANSWER,answer);
+        values.put(COLUMN_NAME_BOOK_ID,id);
+        db.insert(TABLE_NAME_PROBLEMS,null,values);
+        this.problemList.clear();
+        this.problemList.addAll(Problem.getList(context, id));
     }
 
     @Override
