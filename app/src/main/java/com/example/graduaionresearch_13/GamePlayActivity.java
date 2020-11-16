@@ -69,7 +69,7 @@ public class GamePlayActivity extends AppCompatActivity{
     private class OnClickResultCheck implements View.OnClickListener{
         @Override
         public void onClick(View v){
-            if(editAnswerText.getText().equals(problmes.get(problemsIndex))){
+            if(editAnswerText.getText().toString().equals(problmes.get(problemsIndex))){
                 //正解
                 Log.d("answer","正解");
             }else{
