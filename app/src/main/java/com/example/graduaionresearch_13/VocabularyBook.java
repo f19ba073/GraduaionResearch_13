@@ -4,12 +4,16 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.graduaionresearch_13.DBNames.*;
+import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_BOOK_NAME;
+import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_ID;
+import static com.example.graduaionresearch_13.DBNames.TABLE_NAME_BOOKS;
+import static com.example.graduaionresearch_13.DBNames.TABLE_NAME_PROBLEMS;
 
 public class VocabularyBook implements Serializable {
     private int book_id;
@@ -55,6 +59,15 @@ public class VocabularyBook implements Serializable {
                 COLUMN_NAME_ID + " = " + this.getBook_id(),null);
     }
 
+    public static int getNewId(Context context){
+        DBOpenHelper helper = new DBOpenHelper(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_NAME_BOOKS, new String[]{"MAX(" + COLUMN_NAME_ID + ") AS MAX"}, null, null, null, null, null);
+        cursor.moveToFirst(); // to move the cursor to first record
+        int index = cursor.getInt(0);
+        Log.d("id", index + "");
+        return index + 1;
+    }
     public int getBook_id(){
         return this.book_id;
     }

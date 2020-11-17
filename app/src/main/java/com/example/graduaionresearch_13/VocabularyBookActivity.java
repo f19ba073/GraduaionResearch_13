@@ -12,6 +12,8 @@ import android.widget.ListView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.List;
 
 public class VocabularyBookActivity extends AppCompatActivity {
@@ -72,6 +74,32 @@ public class VocabularyBookActivity extends AppCompatActivity {
                             }
                         }).setCancelable(true)
                         .show();
+            }
+        });
+
+        FloatingActionButton fab = findViewById(R.id.add_vocabulary);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LayoutInflater factory = LayoutInflater.from(getApplication());
+                final View inputView = factory.inflate(R.layout.vb_titleedit_diarog, null);
+
+                new android.app.AlertDialog.Builder(VocabularyBookActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("編集")
+                        .setView(inputView)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                EditText title = inputView.findViewById(R.id.dialog_edit_title);
+                                addList(title.getText().toString());
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                            }
+                        })
+                        .create().show();
             }
         });
 
@@ -143,4 +171,13 @@ public class VocabularyBookActivity extends AppCompatActivity {
         adapter.edit(getApplication(), position, title);
         adapter.notifyDataSetChanged();
     }
+
+    private void addList(String title){
+       VocabularyBook newBook =  adapter.addList(getApplication(), title);
+        adapter.notifyDataSetChanged();
+        Intent intent = new Intent(getApplication(), ProblemListActivity.class);
+        intent.putExtra("VocabularyBook", newBook);
+        startActivity(intent);
+    }
+
 }

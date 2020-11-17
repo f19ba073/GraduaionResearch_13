@@ -1,6 +1,8 @@
 package com.example.graduaionresearch_13;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
+
+import static com.example.graduaionresearch_13.DBNames.*;
 
 public class ListViewAdapter extends BaseAdapter{
 
@@ -73,6 +77,20 @@ public class ListViewAdapter extends BaseAdapter{
         VocabularyBook item = titles.get(position);
         item.setBook_name(title);
         titles.get(position).update(context);
+    }
+
+    public VocabularyBook addList(Context context, String title){
+        int book_id = VocabularyBook.getNewId(context);
+        DBOpenHelper helper = new DBOpenHelper(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        ContentValues bookValues = new ContentValues();
+
+        bookValues.put(COLUMN_NAME_BOOK_NAME, title);
+        bookValues.put(COLUMN_NAME_ID, book_id);
+        db.insert(TABLE_NAME_BOOKS, null, bookValues);
+        this.titles.clear();
+        this.titles.addAll(VocabularyBook.getList(context));
+        return new VocabularyBook(book_id,title);
     }
 
     @Override
