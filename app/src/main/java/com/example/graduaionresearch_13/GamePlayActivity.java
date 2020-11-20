@@ -36,7 +36,7 @@ public class GamePlayActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.game_play);
+        setContentView(R.layout.game_start);
         problemsIndex = 0;
 
         //画面遷移を実装する場合の処理
@@ -55,7 +55,7 @@ public class GamePlayActivity extends AppCompatActivity{
     }
 
     private void initializeGameProduction(){
-        setContentView(R.layout.game_production);
+        setContentView(R.layout.game_play);
         nextTransitionButton = findViewById(R.id.next_transition_button);
         endButton = findViewById(R.id.end_button);
         problemTextView = findViewById(R.id.problem_text_view);

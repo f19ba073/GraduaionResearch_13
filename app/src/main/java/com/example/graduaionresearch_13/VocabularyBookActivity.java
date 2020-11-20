@@ -1,6 +1,5 @@
 package com.example.graduaionresearch_13;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -76,7 +75,7 @@ public class VocabularyBookActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 LayoutInflater factory = LayoutInflater.from(getApplication());
-                final View inputView = factory.inflate(R.layout.vb_titleedit_diarog, null);
+                final View inputView = factory.inflate(R.layout.vocabulary_book_title_edit_diarog, null);
 
                 new android.app.AlertDialog.Builder(VocabularyBookActivity.this)
                         .setIcon(android.R.drawable.ic_dialog_alert)
@@ -142,7 +141,7 @@ public class VocabularyBookActivity extends AppCompatActivity {
     //編集画面の出力
     private void showTitleEdit(final int position){
         LayoutInflater factory = LayoutInflater.from(this);
-        final View inputView = factory.inflate(R.layout.vb_titleedit_diarog, null);
+        final View inputView = factory.inflate(R.layout.vocabulary_book_title_edit_diarog, null);
 
         new android.app.AlertDialog.Builder(VocabularyBookActivity.this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
