@@ -2,14 +2,12 @@ package com.example.graduaionresearch_13;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,7 +15,7 @@ import android.widget.TextView;
 
 public class GamePlayActivity extends AppCompatActivity{
 
-    private final List<Problem> problmes = new ArrayList<>(Arrays.asList(
+    private List<Problem> problmes = new ArrayList<>(Arrays.asList(
             new Problem(1,"jvmとは","java仮想マシン",1),
             new Problem(2,"jdkとは","java開発環境",1),
             new Problem(3,"javacとは","コンパイル",1)
@@ -28,10 +26,12 @@ public class GamePlayActivity extends AppCompatActivity{
     private Button endButton;
     private TextView problemTextView;
     private EditText editAnswerText;
-    private ImageView correctWrongImage;
+    private ImageView correctOrWrongImage;
 
     private OnClickNextProblem onClickNextProblem = new OnClickNextProblem();
     private OnClickResultCheck onClickResultCheck = new OnClickResultCheck();
+
+    private VocabularyBook currentVocabularyBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,22 +39,28 @@ public class GamePlayActivity extends AppCompatActivity{
         setContentView(R.layout.game_play);
         problemsIndex = 0;
 
+        //画面遷移を実装する場合の処理
+        Intent intent = getIntent();
+        currentVocabularyBook = (VocabularyBook)intent.getSerializableExtra("VocabularyBook");
+        problmes = Problem.getList(getApplication(), currentVocabularyBook.getBook_id());
+        setTitle(currentVocabularyBook.getBook_name());
+
         Button start_button = findViewById(R.id.gamestart_button);
         start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.game_production);
                 initializeGameProduction();
             }
         });
     }
 
     private void initializeGameProduction(){
+        setContentView(R.layout.game_production);
         nextTransitionButton = findViewById(R.id.next_transition_button);
         endButton = findViewById(R.id.end_button);
         problemTextView = findViewById(R.id.problem_text_view);
         editAnswerText = findViewById(R.id.edit_answer_text);
-        correctWrongImage = findViewById(R.id.correct_wrong_image);
+        correctOrWrongImage = findViewById(R.id.correct_wrong_image);
 
         setProblemWithIndex(problemsIndex);
         nextTransitionButton.setOnClickListener(onClickResultCheck);
@@ -62,7 +68,7 @@ public class GamePlayActivity extends AppCompatActivity{
 
     //TODO 結果画面の初期化処理を実装
     private void initializeGameResult(){
-
+        setContentView(R.layout.game_result);
     }
 
     private void setProblemWithIndex(int index){
@@ -74,7 +80,7 @@ public class GamePlayActivity extends AppCompatActivity{
         public void onClick(View v){
             editAnswerText.getEditableText().clear();
             setProblemWithIndex(problemsIndex);
-            correctWrongImage.setImageDrawable(null);
+            correctOrWrongImage.setImageDrawable(null);
 
             nextTransitionButton.setOnClickListener(onClickResultCheck);
             nextTransitionButton.setText("正解へ");
@@ -89,10 +95,10 @@ public class GamePlayActivity extends AppCompatActivity{
 
             if(editedAnswer.equals(correctAnswer)){
                 //正解
-                correctWrongImage.setImageResource(R.drawable.ic_correct);
+                correctOrWrongImage.setImageResource(R.drawable.ic_correct);
             }else{
                 //不正解
-                correctWrongImage.setImageResource(R.drawable.ic_wrong);
+                correctOrWrongImage.setImageResource(R.drawable.ic_wrong);
             }
 
             nextTransitionButton.setOnClickListener(onClickNextProblem);
