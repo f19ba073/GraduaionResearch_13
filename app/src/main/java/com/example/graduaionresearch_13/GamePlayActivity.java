@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class GamePlayActivity extends AppCompatActivity{
@@ -27,6 +28,7 @@ public class GamePlayActivity extends AppCompatActivity{
     private Button endButton;
     private TextView problemTextView;
     private EditText editAnswerText;
+    private ImageView correctWrongImage;
 
     private OnClickNextProblem onClickNextProblem = new OnClickNextProblem();
     private OnClickResultCheck onClickResultCheck = new OnClickResultCheck();
@@ -37,20 +39,30 @@ public class GamePlayActivity extends AppCompatActivity{
         setContentView(R.layout.game_play);
         problemsIndex = 0;
 
-        final Button start_button = findViewById(R.id.gamestart_button);
+        Button start_button = findViewById(R.id.gamestart_button);
         start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setContentView(R.layout.game_production);
-                nextTransitionButton = findViewById(R.id.next_transition_button);
-                endButton = findViewById(R.id.end_button);
-                problemTextView = findViewById(R.id.problem_text_view);
-                editAnswerText = findViewById(R.id.edit_answer_text);
-
-                setProblemWithIndex(problemsIndex);
-                nextTransitionButton.setOnClickListener(onClickResultCheck);
+                initializeGameProduction();
             }
         });
+    }
+
+    private void initializeGameProduction(){
+        nextTransitionButton = findViewById(R.id.next_transition_button);
+        endButton = findViewById(R.id.end_button);
+        problemTextView = findViewById(R.id.problem_text_view);
+        editAnswerText = findViewById(R.id.edit_answer_text);
+        correctWrongImage = findViewById(R.id.correct_wrong_image);
+
+        setProblemWithIndex(problemsIndex);
+        nextTransitionButton.setOnClickListener(onClickResultCheck);
+    }
+
+    //TODO 結果画面の初期化処理を実装
+    private void initializeGameResult(){
+
     }
 
     private void setProblemWithIndex(int index){
@@ -60,25 +72,31 @@ public class GamePlayActivity extends AppCompatActivity{
     private class OnClickNextProblem implements View.OnClickListener{
         @Override
         public void onClick(View v){
-            nextTransitionButton.setText("正解へ");
+            editAnswerText.getEditableText().clear();
             setProblemWithIndex(problemsIndex);
+            correctWrongImage.setImageDrawable(null);
+
             nextTransitionButton.setOnClickListener(onClickResultCheck);
+            nextTransitionButton.setText("正解へ");
         }
     }
 
     private class OnClickResultCheck implements View.OnClickListener{
         @Override
         public void onClick(View v){
-            if(editAnswerText.getText().toString().equals(problmes.get(problemsIndex))){
+            String editedAnswer = editAnswerText.getText().toString();
+            String correctAnswer = problmes.get(problemsIndex).getAnswer();
+
+            if(editedAnswer.equals(correctAnswer)){
                 //正解
-                Log.d("answer","正解");
+                correctWrongImage.setImageResource(R.drawable.ic_correct);
             }else{
                 //不正解
-                Log.d("answer","不正解");
+                correctWrongImage.setImageResource(R.drawable.ic_wrong);
             }
 
-            nextTransitionButton.setText("次の問題へ");
             nextTransitionButton.setOnClickListener(onClickNextProblem);
+            nextTransitionButton.setText("次の問題へ");
             problemsIndex++;
         }
     }
