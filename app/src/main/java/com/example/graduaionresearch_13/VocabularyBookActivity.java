@@ -1,5 +1,6 @@
 package com.example.graduaionresearch_13;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,9 +38,14 @@ public class VocabularyBookActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                //リスト自体をクリックされた場合
                 if(R.id.menu != id){
+                    screenTransition(adapter.getItem(position), GamePlayActivity.class);
                     return;
                 }
+
+                //メニューボタンをクリックされた場合
                 final String[] menus = {"編集", "削除", "タイトル編集","キャンセル"};
                 new AlertDialog.Builder(VocabularyBookActivity.this)
                         .setTitle("Selector")
@@ -48,7 +54,7 @@ public class VocabularyBookActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which){
                                     case 0:
-                                        screenTransition(position);
+                                        screenTransition(adapter.getItem(position), ProblemListActivity.class);
                                         break;
                                     case 1:
                                         showDeleteCheck(position);
@@ -94,9 +100,9 @@ public class VocabularyBookActivity extends AppCompatActivity {
     }
 
     //問題一覧画面に遷移
-    private void screenTransition(int position){
-        Intent intent = new Intent(getApplication(), ProblemListActivity.class);
-        intent.putExtra("VocabularyBook",adapter.getItem(position));
+    private void screenTransition(VocabularyBook vocabularyBook, Class nextScreen){
+        Intent intent = new Intent(getApplication(), nextScreen);
+        intent.putExtra("VocabularyBook", vocabularyBook);
         startActivity(intent);
     }
 
