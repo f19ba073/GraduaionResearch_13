@@ -24,16 +24,16 @@ public class ListViewAdapter extends BaseAdapter{
 
     private LayoutInflater inflater;
     private int itemLayoutId;
-    private List<VocabularyBook> titles;
+    private List<VocabularyBook> vocabularyBookList;
 
     ListViewAdapter(Context context,
                     int itemLayoutId,
-                    List<VocabularyBook> itemNames) {
+                    List<VocabularyBook> list) {
         super();
         this.inflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.itemLayoutId = itemLayoutId;
-        this.titles = itemNames;
+        this.vocabularyBookList = list;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class ListViewAdapter extends BaseAdapter{
         }
 
         // 現在の position にあるファイル名リストを holder の textView にセット
-        holder.textView.setText(titles.get(position).getBook_name());
+        holder.textView.setText(vocabularyBookList.get(position).getBook_name());
         holder.menuButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -69,39 +69,39 @@ public class ListViewAdapter extends BaseAdapter{
     }
 
     public void delete(Context context, int position){
-        titles.get(position).delete(context);
-        titles.remove(position);
+        vocabularyBookList.get(position).delete(context);
+        vocabularyBookList.remove(position);
     }
 
-    public void edit(Context context, int position, String title){
-        VocabularyBook item = titles.get(position);
-        item.setBook_name(title);
-        titles.get(position).update(context);
+    public void edit(Context context, int position, String newTitle){
+        VocabularyBook item = vocabularyBookList.get(position);
+        item.setBook_name(newTitle);
+        vocabularyBookList.get(position).update(context);
     }
 
-    public VocabularyBook addList(Context context, String title){
+    public VocabularyBook add(Context context, String newTitle){
         int book_id = VocabularyBook.getNewId(context);
         DBOpenHelper helper = new DBOpenHelper(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues bookValues = new ContentValues();
 
-        bookValues.put(COLUMN_NAME_BOOK_NAME, title);
+        bookValues.put(COLUMN_NAME_BOOK_NAME, newTitle);
         bookValues.put(COLUMN_NAME_ID, book_id);
         db.insert(TABLE_NAME_BOOKS, null, bookValues);
-        this.titles.clear();
-        this.titles.addAll(VocabularyBook.getList(context));
-        return new VocabularyBook(book_id,title);
+        this.vocabularyBookList.clear();
+        this.vocabularyBookList.addAll(VocabularyBook.getList(context));
+        return new VocabularyBook(book_id, newTitle);
     }
 
     @Override
     public int getCount() {
         // texts 配列の要素数
-        return titles.size();
+        return vocabularyBookList.size();
     }
 
     @Override
     public VocabularyBook getItem(int position) {
-        return titles.get(position);
+        return vocabularyBookList.get(position);
     }
 
     @Override

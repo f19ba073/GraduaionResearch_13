@@ -14,26 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.List;
-
 public class VocabularyBookActivity extends AppCompatActivity {
 
     private ListViewAdapter adapter;
-
-    // 要素の削除、順番変更のためArrayListを定義
-    private List<String> itemNames;
-    // タップされたitemの位置
-    private int tappedPosition = 0;
-    //サンプルデータ
-    List<VocabularyBook> scenes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vocabulary_book_list);
-
-        //DBからデータを取得
-        scenes = VocabularyBook.getList(getApplication());
 
         // ListViewのインスタンスを生成
         ListView listView = (ListView) findViewById(R.id.listView);
@@ -41,7 +29,7 @@ public class VocabularyBookActivity extends AppCompatActivity {
         // BaseAdapter を継承したadapterのインスタンスを生成
         // レイアウトファイル list.xml を activity_main.xml に inflate するためにadapterに引数として渡す
         adapter = new ListViewAdapter(this.getApplicationContext(),
-                R.layout.row, scenes);
+                R.layout.vocabularybook_row, VocabularyBook.getList(getApplication()));
 
         // ListViewにadapterをセット
         listView.setAdapter(adapter);
@@ -52,10 +40,10 @@ public class VocabularyBookActivity extends AppCompatActivity {
                 if(R.id.menu != id){
                     return;
                 }
-                final String[] items = {"編集", "削除", "タイトル編集","キャンセル"};
+                final String[] menus = {"編集", "削除", "タイトル編集","キャンセル"};
                 new AlertDialog.Builder(VocabularyBookActivity.this)
                         .setTitle("Selector")
-                        .setItems(items, new DialogInterface.OnClickListener() {
+                        .setItems(menus, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which){
@@ -90,8 +78,8 @@ public class VocabularyBookActivity extends AppCompatActivity {
                         .setView(inputView)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                EditText title = inputView.findViewById(R.id.dialog_edit_title);
-                                addList(title.getText().toString());
+                                EditText newTitle = inputView.findViewById(R.id.dialog_edit_title);
+                                addList(newTitle.getText().toString());
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -104,6 +92,7 @@ public class VocabularyBookActivity extends AppCompatActivity {
         });
 
     }
+
     //問題一覧画面に遷移
     private void screenTransition(int position){
         Intent intent = new Intent(getApplication(), ProblemListActivity.class);
@@ -155,8 +144,8 @@ public class VocabularyBookActivity extends AppCompatActivity {
                 .setView(inputView)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        EditText title = inputView.findViewById(R.id.dialog_edit_title);
-                        edit(position, title.getText().toString());
+                        EditText newTitle = inputView.findViewById(R.id.dialog_edit_title);
+                        edit(position, newTitle.getText().toString());
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -167,16 +156,16 @@ public class VocabularyBookActivity extends AppCompatActivity {
                 .create().show();
     }
 
-    private void edit(int position, String title){
-        adapter.edit(getApplication(), position, title);
+    private void edit(int position, String newTitle){
+        adapter.edit(getApplication(), position, newTitle);
         adapter.notifyDataSetChanged();
     }
 
-    private void addList(String title){
-       VocabularyBook newBook =  adapter.addList(getApplication(), title);
+    private void addList(String newTitle){
+       VocabularyBook createNewBook =  adapter.add(getApplication(), newTitle);
         adapter.notifyDataSetChanged();
         Intent intent = new Intent(getApplication(), ProblemListActivity.class);
-        intent.putExtra("VocabularyBook", newBook);
+        intent.putExtra("VocabularyBook", createNewBook);
         startActivity(intent);
     }
 
