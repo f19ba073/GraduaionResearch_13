@@ -15,11 +15,7 @@ import android.widget.TextView;
 
 public class GamePlayActivity extends AppCompatActivity{
 
-    private List<Problem> problmes = new ArrayList<>(Arrays.asList(
-            new Problem(1,"jvmとは","java仮想マシン",1),
-            new Problem(2,"jdkとは","java開発環境",1),
-            new Problem(3,"javacとは","コンパイル",1)
-    ));
+    private List<Problem> problems;
     private int problemsIndex;
 
     private Button nextTransitionButton;
@@ -39,10 +35,9 @@ public class GamePlayActivity extends AppCompatActivity{
         setContentView(R.layout.game_start);
         problemsIndex = 0;
 
-        //画面遷移を実装する場合の処理
         Intent intent = getIntent();
         currentVocabularyBook = (VocabularyBook)intent.getSerializableExtra("VocabularyBook");
-        problmes = Problem.getList(getApplication(), currentVocabularyBook.getBook_id());
+        problems = Problem.getList(getApplication(), currentVocabularyBook.getBook_id());
         setTitle(currentVocabularyBook.getBook_name());
 
         Button start_button = findViewById(R.id.gamestart_button);
@@ -72,7 +67,7 @@ public class GamePlayActivity extends AppCompatActivity{
     }
 
     private void setProblemWithIndex(int index){
-        problemTextView.setText(problmes.get(index).getProblem());
+        problemTextView.setText(problems.get(index).getProblem());
     }
 
     private class OnClickNextProblem implements View.OnClickListener{
@@ -91,7 +86,7 @@ public class GamePlayActivity extends AppCompatActivity{
         @Override
         public void onClick(View v){
             String editedAnswer = editAnswerText.getText().toString();
-            String correctAnswer = problmes.get(problemsIndex).getAnswer();
+            String correctAnswer = problems.get(problemsIndex).getAnswer();
 
             if(editedAnswer.equals(correctAnswer)){
                 //正解

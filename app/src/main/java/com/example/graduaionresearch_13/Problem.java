@@ -17,10 +17,10 @@ public class Problem {
     private int book_id;
 
     public Problem(int id, String problem, String answer, int book_id){
-        this.id=id;
-        this.problem=problem;
-        this.answer=answer;
-        this.book_id=book_id;
+        this.id = id;
+        this.problem = problem;
+        this.answer = answer;
+        this.book_id = book_id;
     }
 
     public static List<Problem> getList(Context context, int id){
@@ -75,18 +75,18 @@ public class Problem {
     }
 
     public void setId(int id){
-        this.id=id;
+        this.id = id;
     }
 
     public void setProblem(String problem){
-        this.problem=problem;
+        this.problem = problem;
     }
 
     public void setAnswer(String answer){
-        this.answer=answer;
+        this.answer = answer;
     }
 
     public void setBook_id(int book_id){
-        this.book_id=book_id;
+        this.book_id = book_id;
     }
 }

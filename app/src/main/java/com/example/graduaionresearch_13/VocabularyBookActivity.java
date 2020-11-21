@@ -16,7 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class VocabularyBookActivity extends AppCompatActivity {
 
-    private ListViewAdapter adapter;
+    private VocabularyBookAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class VocabularyBookActivity extends AppCompatActivity {
 
         // BaseAdapter を継承したadapterのインスタンスを生成
         // レイアウトファイル list.xml を activity_main.xml に inflate するためにadapterに引数として渡す
-        adapter = new ListViewAdapter(this.getApplicationContext(),
+        adapter = new VocabularyBookAdapter(this.getApplicationContext(),
                 R.layout.vocabularybook_row, VocabularyBook.getList(getApplication()));
 
         // ListViewにadapterをセット
