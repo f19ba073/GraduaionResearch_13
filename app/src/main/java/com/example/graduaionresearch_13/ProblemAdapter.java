@@ -62,8 +62,7 @@ class ProblemAdapter extends BaseAdapter {
     public void delete(Context context, int position){
         Problem item = problemList.get(position);
         item.delete(context);
-
-        problemList.remove(position);
+        this.problemList.remove(position);
     }
 
     public void edit(Context context, int position, String problem, String answer){
@@ -72,15 +71,8 @@ class ProblemAdapter extends BaseAdapter {
     }
 
     public void add(Context context, String problem, String answer, int id){
-        DBOpenHelper helper = new DBOpenHelper(context);
-        SQLiteDatabase db = helper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_NAME_PROBLEM,problem);
-        values.put(COLUMN_NAME_ANSWER,answer);
-        values.put(COLUMN_NAME_BOOK_ID,id);
-        db.insert(TABLE_NAME_PROBLEMS,null,values);
-        this.problemList.clear();
-        this.problemList.addAll(Problem.getList(context, id));
+        Problem newProblem = Problem.createNewProblem(context, problem, answer, id);
+        this.problemList.add(newProblem);
     }
 
     @Override
