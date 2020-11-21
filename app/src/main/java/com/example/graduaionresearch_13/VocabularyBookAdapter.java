@@ -82,7 +82,7 @@ class VocabularyBookAdapter extends BaseAdapter{
 
     public VocabularyBook add(Context context, String newTitle){
         int book_id = VocabularyBook.getNewId(context);
-        DBOpenHelper helper = new DBOpenHelper(context);
+        DBOpenHelper helper = DBOpenHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues bookValues = new ContentValues();
 

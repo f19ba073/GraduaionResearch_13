@@ -26,7 +26,7 @@ public class VocabularyBook implements Serializable {
     public static List<VocabularyBook> getList(Context context){
         List<VocabularyBook> list = new ArrayList<>();
 
-        DBOpenHelper helper = new DBOpenHelper(context);
+        DBOpenHelper helper = DBOpenHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         Cursor selectData = db.query(
                 TABLE_NAME_BOOKS,
@@ -51,7 +51,7 @@ public class VocabularyBook implements Serializable {
 
     //BOOKSテーブルに登録されている最大IDに1を加えたIDを返す
     public static int getNewId(Context context){
-        DBOpenHelper helper = new DBOpenHelper(context);
+        DBOpenHelper helper = DBOpenHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         Cursor cursor = db.query(TABLE_NAME_BOOKS,
                 new String[]{"MAX(" + COLUMN_NAME_ID + ") AS MAX"},
@@ -63,7 +63,7 @@ public class VocabularyBook implements Serializable {
     }
 
     public void delete(Context context){
-        DBOpenHelper helper = new DBOpenHelper(context);
+        DBOpenHelper helper = DBOpenHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
 
         //この単語帳データ及び、紐づけられている問題データをデータベースから全て削除
@@ -74,7 +74,7 @@ public class VocabularyBook implements Serializable {
     }
 
     public void update(Context context){
-        DBOpenHelper helper = new DBOpenHelper(context);
+        DBOpenHelper helper = DBOpenHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();

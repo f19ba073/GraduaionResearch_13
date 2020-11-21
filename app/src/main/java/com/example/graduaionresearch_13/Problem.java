@@ -27,7 +27,7 @@ public class Problem {
     public static List<Problem> getList(Context context, int book_id){
         List<Problem> list = new ArrayList<>();
 
-        DBOpenHelper helper = new DBOpenHelper(context);
+        DBOpenHelper helper = DBOpenHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         Cursor selectData = db.query(
                 TABLE_NAME_PROBLEMS,PROBLEM_COLUMNS,
@@ -53,7 +53,7 @@ public class Problem {
     }
 
     public void delete(Context context){
-        DBOpenHelper helper = new DBOpenHelper(context);
+        DBOpenHelper helper = DBOpenHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
 
         db.delete(TABLE_NAME_PROBLEMS,COLUMN_NAME_PROBLEM_ID + " = ?",
@@ -68,7 +68,7 @@ public class Problem {
         updateValues.put(COLUMN_NAME_PROBLEM,this.problem);
         updateValues.put(COLUMN_NAME_ANSWER,this.answer);
 
-        DBOpenHelper helper = new DBOpenHelper(context);
+        DBOpenHelper helper = DBOpenHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
         db.update(TABLE_NAME_PROBLEMS,
                 updateValues,
@@ -77,7 +77,7 @@ public class Problem {
     }
 
     public static synchronized Problem createNewProblem(Context context, String problem, String answer, int id){
-        DBOpenHelper helper = new DBOpenHelper(context);
+        DBOpenHelper helper = DBOpenHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
 
         //新規データ挿入

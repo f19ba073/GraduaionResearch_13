@@ -27,7 +27,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_PROBLEMS = "DROP TABLE " + TABLE_NAME_PROBLEMS;
     private static final String SQL_DELETE_USER_PROFILE = "DROP TABLE " + TABLE_NAME_USER_PROFILE;
 
-    DBOpenHelper(Context context) {
+    private DBOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
