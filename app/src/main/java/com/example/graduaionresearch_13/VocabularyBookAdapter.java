@@ -15,7 +15,8 @@ import java.util.List;
 
 import static com.example.graduaionresearch_13.DBNames.*;
 
-public class ListViewAdapter extends BaseAdapter{
+//単語帳一覧画面のListViewに渡すAdapter
+class VocabularyBookAdapter extends BaseAdapter{
 
     static class ViewHolder {
         TextView textView;
@@ -26,9 +27,9 @@ public class ListViewAdapter extends BaseAdapter{
     private int itemLayoutId;
     private List<VocabularyBook> vocabularyBookList;
 
-    ListViewAdapter(Context context,
-                    int itemLayoutId,
-                    List<VocabularyBook> list) {
+    VocabularyBookAdapter(Context context,
+                          int itemLayoutId,
+                          List<VocabularyBook> list) {
         super();
         this.inflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

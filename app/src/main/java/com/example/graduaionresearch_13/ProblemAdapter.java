@@ -16,7 +16,8 @@ import java.util.*;
 
 import static com.example.graduaionresearch_13.DBNames.*;
 
-public class ProblemAdapter extends BaseAdapter {
+//問題一覧画面のListViewに渡すAdapter
+class ProblemAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private int resourcedId;
     private List<Problem> problemList;
@@ -36,7 +37,7 @@ public class ProblemAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, final ViewGroup parent) {
         ViewHolder holder;
         if(convertView == null){
-            convertView = inflater.inflate(resourcedId,parent,false);
+            convertView = inflater.inflate(resourcedId, parent, false);
 
             holder = new ViewHolder();
 

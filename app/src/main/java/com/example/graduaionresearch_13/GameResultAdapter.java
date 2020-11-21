@@ -4,9 +4,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-public class GameResultAdapter extends BaseAdapter {
-
-    
+//結果表示画面のListViewに渡すAdapter
+class GameResultAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
