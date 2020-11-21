@@ -35,6 +35,7 @@ public class GamePlayActivity extends AppCompatActivity{
         setContentView(R.layout.game_start);
         problemsIndex = 0;
 
+        //単語帳一覧から渡されたVocabularyBookオブジェクト受け取り
         Intent intent = getIntent();
         currentVocabularyBook = (VocabularyBook)intent.getSerializableExtra("VocabularyBook");
         problems = Problem.getList(getApplication(), currentVocabularyBook.getBook_id());
@@ -44,18 +45,21 @@ public class GamePlayActivity extends AppCompatActivity{
         start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initializeGameProduction();
+                initializeGamePlay();
             }
         });
     }
 
-    private void initializeGameProduction(){
+    //問題回答画面の初期化
+    private void initializeGamePlay(){
         setContentView(R.layout.game_play);
+
+        //xmlからコンポーネント読み込み
         nextTransitionButton = findViewById(R.id.next_transition_button);
-        endButton = findViewById(R.id.end_button);
-        problemTextView = findViewById(R.id.problem_text_view);
-        editAnswerText = findViewById(R.id.edit_answer_text);
-        correctOrWrongImage = findViewById(R.id.correct_wrong_image);
+        endButton            = findViewById(R.id.end_button);
+        problemTextView      = findViewById(R.id.problem_text_view);
+        editAnswerText       = findViewById(R.id.edit_answer_text);
+        correctOrWrongImage  = findViewById(R.id.correct_wrong_image);
 
         setProblemWithIndex(problemsIndex);
         nextTransitionButton.setOnClickListener(onClickResultCheck);
@@ -73,10 +77,13 @@ public class GamePlayActivity extends AppCompatActivity{
     private class OnClickNextProblem implements View.OnClickListener{
         @Override
         public void onClick(View v){
-            editAnswerText.getEditableText().clear();
+
+            //問題文、回答領域、〇×表示の初期化
             setProblemWithIndex(problemsIndex);
+            editAnswerText.getEditableText().clear();
             correctOrWrongImage.setImageDrawable(null);
 
+            //正誤判定のためクリックイベント切り替え
             nextTransitionButton.setOnClickListener(onClickResultCheck);
             nextTransitionButton.setText("正解へ");
         }
@@ -88,14 +95,14 @@ public class GamePlayActivity extends AppCompatActivity{
             String editedAnswer = editAnswerText.getText().toString();
             String correctAnswer = problems.get(problemsIndex).getAnswer();
 
+            //正誤判定
             if(editedAnswer.equals(correctAnswer)){
-                //正解
                 correctOrWrongImage.setImageResource(R.drawable.ic_correct);
             }else{
-                //不正解
                 correctOrWrongImage.setImageResource(R.drawable.ic_wrong);
             }
 
+            //次の問題に遷移できるようにクリックイベント切り替え
             nextTransitionButton.setOnClickListener(onClickNextProblem);
             nextTransitionButton.setText("次の問題へ");
             problemsIndex++;

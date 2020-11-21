@@ -15,7 +15,8 @@ import java.util.List;
 
 import static com.example.graduaionresearch_13.DBNames.*;
 
-public class VocabularyBookAdapter extends BaseAdapter{
+//単語帳一覧画面のListViewに渡すAdapter
+class VocabularyBookAdapter extends BaseAdapter{
 
     static class ViewHolder {
         TextView textView;
