@@ -10,10 +10,7 @@ import static com.example.graduaionresearch_13.DBNames.*;
 
 public class DBOpenHelper extends SQLiteOpenHelper {
 
-
-
-
-    
+    private static DBOpenHelper dbOpenHelper;
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "WordsAppDB.db";
@@ -32,6 +29,13 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     DBOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    public static synchronized DBOpenHelper getInstance(Context context){
+        if(dbOpenHelper == null){
+            dbOpenHelper = new DBOpenHelper(context);
+        }
+        return dbOpenHelper;
     }
 
     @Override
