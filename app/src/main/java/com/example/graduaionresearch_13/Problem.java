@@ -60,16 +60,57 @@ public class Problem {
                 new String[]{String.valueOf(this.id)});
     }
 
-    public void update(Context context){
+    public void update(Context context, String newProblem, String newAnswer){
+        setProblem(newProblem);
+        setAnswer(newAnswer);
+
+        ContentValues updateValues = new ContentValues();
+        updateValues.put(COLUMN_NAME_PROBLEM,this.problem);
+        updateValues.put(COLUMN_NAME_ANSWER,this.answer);
+
+        DBOpenHelper helper = new DBOpenHelper(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        db.update(TABLE_NAME_PROBLEMS,
+                updateValues,
+                COLUMN_NAME_PROBLEM_ID + " = " + this.getId(),
+                null);
+    }
+
+    public static synchronized Problem createNewProblem(Context context, String problem, String answer, int id){
         DBOpenHelper helper = new DBOpenHelper(context);
         SQLiteDatabase db = helper.getWritableDatabase();
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_NAME_PROBLEM,this.problem);
-        contentValues.put(COLUMN_NAME_ANSWER,this.answer);
+        //新規データ挿入
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_PROBLEM,problem);
+        values.put(COLUMN_NAME_ANSWER,answer);
+        values.put(COLUMN_NAME_BOOK_ID,id);
+        db.insert(TABLE_NAME_PROBLEMS,null,values);
 
-        db.update(TABLE_NAME_PROBLEMS,contentValues,
-                COLUMN_NAME_PROBLEM_ID + " = " + this.getId(),null);
+        //挿入したデータを取得
+        Cursor selectData = db.query(
+                TABLE_NAME_PROBLEMS,PROBLEM_COLUMNS,
+                COLUMN_NAME_PROBLEM_ID +
+                        " = (SELECT MAX(" + COLUMN_NAME_PROBLEM_ID + ") " +
+                        " FROM " + TABLE_NAME_PROBLEMS +" )",
+                null, null, null, null);
+
+        //Problemオブジェクトを作成してreturn
+        Problem newProblem = null;
+        if(selectData == null){return newProblem;}
+        try{
+            selectData.moveToNext();
+            newProblem = new Problem(
+                            selectData.getInt(0),
+                            selectData.getString(1),
+                            selectData.getString(2),
+                            selectData.getInt(3)
+                    );
+
+        }finally {
+            selectData.close();
+        }
+        return newProblem;
     }
 
     public int getId(){
