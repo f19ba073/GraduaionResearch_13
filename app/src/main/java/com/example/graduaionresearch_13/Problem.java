@@ -60,16 +60,20 @@ public class Problem {
                 new String[]{String.valueOf(this.id)});
     }
 
-    public void update(Context context){
+    public void update(Context context, String newProblem, String newAnswer){
+        setProblem(newProblem);
+        setAnswer(newAnswer);
+
+        ContentValues updateValues = new ContentValues();
+        updateValues.put(COLUMN_NAME_PROBLEM,this.problem);
+        updateValues.put(COLUMN_NAME_ANSWER,this.answer);
+
         DBOpenHelper helper = new DBOpenHelper(context);
         SQLiteDatabase db = helper.getWritableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_NAME_PROBLEM,this.problem);
-        contentValues.put(COLUMN_NAME_ANSWER,this.answer);
-
-        db.update(TABLE_NAME_PROBLEMS,contentValues,
-                COLUMN_NAME_PROBLEM_ID + " = " + this.getId(),null);
+        db.update(TABLE_NAME_PROBLEMS,
+                updateValues,
+                COLUMN_NAME_PROBLEM_ID + " = " + this.getId(),
+                null);
     }
 
     public int getId(){

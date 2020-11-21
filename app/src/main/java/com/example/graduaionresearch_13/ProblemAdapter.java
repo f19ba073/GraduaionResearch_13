@@ -60,15 +60,15 @@ class ProblemAdapter extends BaseAdapter {
     }
 
     public void delete(Context context, int position){
-        problemList.get(position).delete(context);
+        Problem item = problemList.get(position);
+        item.delete(context);
+
         problemList.remove(position);
     }
 
     public void edit(Context context, int position, String problem, String answer){
         Problem item = problemList.get(position);
-        item.setProblem(problem);
-        item.setAnswer(answer);
-        item.update(context);
+        item.update(context, problem, answer);
     }
 
     public void add(Context context, String problem, String answer, int id){
