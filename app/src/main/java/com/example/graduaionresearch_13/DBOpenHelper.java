@@ -10,6 +10,11 @@ import static com.example.graduaionresearch_13.DBNames.*;
 
 public class DBOpenHelper extends SQLiteOpenHelper {
 
+
+
+
+    
+
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "WordsAppDB.db";
 
