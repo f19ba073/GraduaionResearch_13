@@ -4,13 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.util.*;
 
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -77,10 +80,14 @@ public class GamePlayActivity extends AppCompatActivity{
         nextTransitionButton.setOnClickListener(onClickResultCheck);
     }
 
-    //TODO 結果画面の初期化処理を実装
+    //結果画面の初期化
     private void initializeGameResult(){
         setContentView(R.layout.game_result);
+
         resultListView = findViewById(R.id.result_listView);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View header = inflater.inflate(R.layout.result_header, null);
+        resultListView.addHeaderView(header);
 
         GameResultAdapter adapter = new GameResultAdapter(getApplicationContext(), R.layout.result_row, results);
         resultListView.setAdapter(adapter);
@@ -130,7 +137,8 @@ public class GamePlayActivity extends AppCompatActivity{
 
             problemsIndex++;
 
-            //次の問題に遷移できるようにクリックイベント切り替え
+            //問題が終わっていなければ次の問題に遷移するクリックイベントに切り替え
+            //終わっていれば結果画面に遷移するクリックイベントに切り替え
             if(problemsIndex < problems.size()){
                 nextTransitionButton.setOnClickListener(onClickNextProblem);
                 nextTransitionButton.setText("次の問題へ");
