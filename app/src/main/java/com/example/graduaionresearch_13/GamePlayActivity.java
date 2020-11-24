@@ -11,12 +11,14 @@ import java.util.*;
 
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class GamePlayActivity extends AppCompatActivity{
 
     private List<Problem> problems;
     private int problemsIndex;
+    private List<Result> results;
 
     private Button nextTransitionButton;
     private Button endButton;
@@ -24,8 +26,16 @@ public class GamePlayActivity extends AppCompatActivity{
     private EditText editAnswerText;
     private ImageView correctOrWrongImage;
 
+    private ListView resultListView;
+
     private OnClickNextProblem onClickNextProblem = new OnClickNextProblem();
     private OnClickResultCheck onClickResultCheck = new OnClickResultCheck();
+    private View.OnClickListener onClickTransitionResult = new View.OnClickListener(){
+        @Override
+        public void onClick(View v) {
+            initializeGameResult();
+        }
+    };
 
     private VocabularyBook currentVocabularyBook;
 
@@ -40,6 +50,8 @@ public class GamePlayActivity extends AppCompatActivity{
         currentVocabularyBook = (VocabularyBook)intent.getSerializableExtra("VocabularyBook");
         problems = Problem.getList(getApplication(), currentVocabularyBook.getBook_id());
         setTitle(currentVocabularyBook.getBook_name());
+
+        results = new ArrayList<>(problems.size());
 
         Button start_button = findViewById(R.id.gamestart_button);
         start_button.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +80,10 @@ public class GamePlayActivity extends AppCompatActivity{
     //TODO 結果画面の初期化処理を実装
     private void initializeGameResult(){
         setContentView(R.layout.game_result);
+        resultListView = findViewById(R.id.result_listView);
+
+        GameResultAdapter adapter = new GameResultAdapter(getApplicationContext(), R.layout.result_row, results);
+        resultListView.setAdapter(adapter);
     }
 
     private void setProblemWithIndex(int index){
@@ -98,14 +114,30 @@ public class GamePlayActivity extends AppCompatActivity{
             //正誤判定
             if(editedAnswer.equals(correctAnswer)){
                 correctOrWrongImage.setImageResource(R.drawable.ic_correct);
+                results.add(new Result(
+                        problems.get(problemsIndex),
+                        true,
+                        editedAnswer
+                ));
             }else{
                 correctOrWrongImage.setImageResource(R.drawable.ic_wrong);
+                results.add(new Result(
+                        problems.get(problemsIndex),
+                        false,
+                        editedAnswer
+                ));
             }
 
-            //次の問題に遷移できるようにクリックイベント切り替え
-            nextTransitionButton.setOnClickListener(onClickNextProblem);
-            nextTransitionButton.setText("次の問題へ");
             problemsIndex++;
+
+            //次の問題に遷移できるようにクリックイベント切り替え
+            if(problemsIndex < problems.size()){
+                nextTransitionButton.setOnClickListener(onClickNextProblem);
+                nextTransitionButton.setText("次の問題へ");
+            }else{
+                nextTransitionButton.setOnClickListener(onClickTransitionResult);
+                nextTransitionButton.setText("結果");
+            }
         }
     }
 }
