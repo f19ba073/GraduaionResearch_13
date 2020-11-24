@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:background="#00bfff">
+    android:background="#fff"
+    android:elevation="10dp">
     <TextView
         android:id="@+id/result_problem_text"
         android:layout_margin="10dp"
@@ -15,6 +16,7 @@
         android:text="問題文"
         android:layout_centerVertical="true"
         android:gravity="left"
+        android:textColor="#000"
         android:maxEms="10"
         android:singleLine="true"
         android:ellipsize="end"/>
@@ -27,6 +29,7 @@
         android:text="自分の回答"
         android:layout_centerVertical="true"
         android:gravity="left"
+        android:textColor="#000"
         android:maxEms="10"
         android:singleLine="true"
         android:ellipsize="end"/>
@@ -39,6 +42,7 @@
         android:text="正解"
         android:layout_centerVertical="true"
         android:gravity="left"
+        android:textColor="#000"
         android:maxEms="10"
         android:singleLine="true"
         android:ellipsize="end"/>
