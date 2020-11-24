@@ -1,6 +1,7 @@
 package com.example.graduaionresearch_13;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,9 +55,15 @@ class GameResultAdapter extends BaseAdapter {
         holder.userAnswerText   .setText(results.get(position).getUserAnswer());
         holder.answerText       .setText(results.get(position).getAnswer());
 
+        //正解、不正解に応じて背景色、画像を設定
         boolean isCorrect = results.get(position).isCorrect();
-        int image = isCorrect ? R.drawable.ic_correct : R.drawable.ic_wrong;
-        holder.correctOrWrongImage.setImageResource(image);
+        if(isCorrect){
+            holder.correctOrWrongImage.setImageResource(R.drawable.ic_correct);
+            convertView.setBackgroundColor(Color.rgb(255, 208, 208));
+        }else{
+            holder.correctOrWrongImage.setImageResource(R.drawable.ic_wrong);
+            convertView.setBackgroundColor(Color.rgb(178, 216, 255));
+        }
 
         return convertView;
     }
