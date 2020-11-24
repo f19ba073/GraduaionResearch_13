@@ -16,26 +16,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
 
-        int[] percent = {0,20,40,60,80};
         ImageView imageView1 = findViewById(R.id.image_view_1);
+        int[] illust = {R.drawable.faketree,
+                            R.drawable.faketree,
+                            R.drawable.faketree,
+                            R.drawable.faketree,
+                            R.drawable.faketree};
 
-        switch(percent[0]/20) {
-            case 0:
-                imageView1.setImageResource(R.drawable.faketree);
-                break;
-            case 1:
-                imageView1.setImageResource(R.drawable.genkinaki);
-                break;
-            case 2:
-                imageView1.setImageResource(R.drawable.faketree);
-                break;
-            case 3:
-                imageView1.setImageResource(R.drawable.genkinaki);
-                break;
-            case 4:
-                imageView1.setImageResource(R.drawable.faketree);
-                break;
-        }
+        int percent = 1;
+        imageView1.setImageResource(illust[percent]);
+
+
 
         final Button start_button = findViewById(R.id.start_button);
         start_button.setOnClickListener(new View.OnClickListener() {
