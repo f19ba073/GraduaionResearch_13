@@ -4,16 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,12 +22,15 @@ public class GamePlayActivity extends AppCompatActivity{
     private List<Problem> problems;
     private int problemsIndex;
     private List<Result> results;
+    private VocabularyBook currentVocabularyBook;
+    private CountDownTimer timer;
 
     private Button nextTransitionButton;
     private Button endButton;
     private TextView problemTextView;
     private EditText editAnswerText;
     private ImageView correctOrWrongImage;
+    private TextView timerText;
 
     private ListView resultListView;
 
@@ -39,8 +42,6 @@ public class GamePlayActivity extends AppCompatActivity{
             initializeGameResult();
         }
     };
-
-    private VocabularyBook currentVocabularyBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +76,31 @@ public class GamePlayActivity extends AppCompatActivity{
         problemTextView      = findViewById(R.id.problem_text_view);
         editAnswerText       = findViewById(R.id.edit_answer_text);
         correctOrWrongImage  = findViewById(R.id.correct_wrong_image);
+        timerText            = findViewById(R.id.time_text);
+
+        //タイマーの初期化
+        timer = new CountDownTimer(10000, 10){
+            private SimpleDateFormat dataFormat =
+                    new SimpleDateFormat("mm:ss.SSS", Locale.US);
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timerText.setText(dataFormat.format(millisUntilFinished));
+            }
+
+            @Override
+            public void onFinish() {
+                timerText.setText(dataFormat.format(0));
+                setResult("時間切れ", false);
+                problemsIndex++;
+                transitionNext();
+            }
+        };
 
         setProblemWithIndex(problemsIndex);
         nextTransitionButton.setOnClickListener(onClickResultCheck);
+
+        timer.start();
     }
 
     //結果画面の初期化
@@ -89,12 +112,39 @@ public class GamePlayActivity extends AppCompatActivity{
         View header = inflater.inflate(R.layout.result_header, null);
         resultListView.addHeaderView(header);
 
-        GameResultAdapter adapter = new GameResultAdapter(getApplicationContext(), R.layout.result_row, results);
+        GameResultAdapter adapter =
+                new GameResultAdapter(getApplicationContext(), R.layout.result_row, results);
         resultListView.setAdapter(adapter);
     }
 
     private void setProblemWithIndex(int index){
         problemTextView.setText(problems.get(index).getProblem());
+    }
+
+    private void setResult(String editedAnswer, boolean isCorrect){
+        if(isCorrect){
+            correctOrWrongImage.setImageResource(R.drawable.ic_correct);
+        }else{
+            correctOrWrongImage.setImageResource(R.drawable.ic_wrong);
+        }
+
+        results.add(new Result(
+                problems.get(problemsIndex),
+                isCorrect,
+                editedAnswer
+        ));
+    }
+
+    //問題が終わっていなければ次の問題に遷移するクリックイベントに切り替え
+    //終わっていれば結果画面に遷移するクリックイベントに切り替え
+    private void transitionNext(){
+        if(problemsIndex < problems.size()){
+            nextTransitionButton.setOnClickListener(onClickNextProblem);
+            nextTransitionButton.setText("次の問題へ");
+        }else{
+            nextTransitionButton.setOnClickListener(onClickTransitionResult);
+            nextTransitionButton.setText("結果");
+        }
     }
 
     private class OnClickNextProblem implements View.OnClickListener{
@@ -109,43 +159,23 @@ public class GamePlayActivity extends AppCompatActivity{
             //正誤判定のためクリックイベント切り替え
             nextTransitionButton.setOnClickListener(onClickResultCheck);
             nextTransitionButton.setText("正解へ");
+
+            timer.start();
         }
     }
 
     private class OnClickResultCheck implements View.OnClickListener{
         @Override
         public void onClick(View v){
+            timer.cancel();
             String editedAnswer = editAnswerText.getText().toString();
             String correctAnswer = problems.get(problemsIndex).getAnswer();
 
             //正誤判定
-            if(editedAnswer.equals(correctAnswer)){
-                correctOrWrongImage.setImageResource(R.drawable.ic_correct);
-                results.add(new Result(
-                        problems.get(problemsIndex),
-                        true,
-                        editedAnswer
-                ));
-            }else{
-                correctOrWrongImage.setImageResource(R.drawable.ic_wrong);
-                results.add(new Result(
-                        problems.get(problemsIndex),
-                        false,
-                        editedAnswer
-                ));
-            }
+            setResult(editedAnswer, editedAnswer.equals(correctAnswer));
 
             problemsIndex++;
-
-            //問題が終わっていなければ次の問題に遷移するクリックイベントに切り替え
-            //終わっていれば結果画面に遷移するクリックイベントに切り替え
-            if(problemsIndex < problems.size()){
-                nextTransitionButton.setOnClickListener(onClickNextProblem);
-                nextTransitionButton.setText("次の問題へ");
-            }else{
-                nextTransitionButton.setOnClickListener(onClickTransitionResult);
-                nextTransitionButton.setText("結果");
-            }
+            transitionNext();
         }
     }
 }
