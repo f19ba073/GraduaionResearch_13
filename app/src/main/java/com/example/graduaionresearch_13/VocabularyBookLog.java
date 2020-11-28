@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi;
 import java.util.ArrayList;
 import java.util.List;
 
+//正解率のデータを保持するクラス
 public class VocabularyBookLog implements Comparable<VocabularyBookLog> {
     private final int log_id;
     private final float accuracy_rate;
