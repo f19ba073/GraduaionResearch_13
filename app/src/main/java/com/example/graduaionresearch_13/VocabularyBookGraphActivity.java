@@ -28,8 +28,9 @@ public class VocabularyBookGraphActivity extends AppCompatActivity {
         LineChart lineChart = (LineChart) findViewById(R.id.accuracy_rate_graph);
         lineChart.getDescription().setEnabled(false);
         lineChart.setBackgroundColor(Color.WHITE);
-        lineChart.setDrawBorders(true);
-        lineChart.setBorderColor(0xffbbbbbb);
+        lineChart.setDrawGridBackground(true);
+        lineChart.setGridBackgroundColor(0xFFDDDDD);
+        lineChart.setClickable(false);
 
         //X,Y軸線の色が場所によって変わってしまうため非表示
         //解決出来たら軸線の表示をしたい
@@ -37,6 +38,7 @@ public class VocabularyBookGraphActivity extends AppCompatActivity {
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setDrawGridLines(false);
         xAxis.setDrawLabels(false);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         //Y軸の設定
         lineChart.getAxisRight().setEnabled(false);
@@ -57,11 +59,11 @@ public class VocabularyBookGraphActivity extends AppCompatActivity {
 
         //サンプルデータ
         logs = new ArrayList<>();
-        logs.add(new VocabularyBookLog(1, 70.0f, 1));
-        logs.add(new VocabularyBookLog(2, 75.0f, 1));
-        logs.add(new VocabularyBookLog(3, 78.5f, 1));
-        logs.add(new VocabularyBookLog(4, 90.6f, 1));
-        logs.add(new VocabularyBookLog(5, 85.8f, 1));
+        logs.add(new VocabularyBookLog(1, 0.0f, 1));
+        logs.add(new VocabularyBookLog(2, 5.0f, 1));
+        logs.add(new VocabularyBookLog(3, 8.5f, 1));
+        logs.add(new VocabularyBookLog(4, 0.6f, 1));
+        logs.add(new VocabularyBookLog(5, 5.8f, 1));
 
         Collections.sort(logs);
 
