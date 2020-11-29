@@ -1,14 +1,11 @@
 package com.example.graduaionresearch_13;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,7 +21,7 @@ class ProblemAdapter extends BaseAdapter {
 
     private static class ViewHolder {
         TextView textView;
-        Button menuButton;
+        ImageButton menuButton;
     }
 
     public ProblemAdapter(Context context, int resourcedId, List<Problem> list){

@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -20,7 +20,7 @@ class VocabularyBookAdapter extends BaseAdapter{
 
     static class ViewHolder {
         TextView textView;
-        Button menuButton;
+        ImageButton menuButton;
     }
 
     private LayoutInflater inflater;
