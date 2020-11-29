@@ -20,11 +20,15 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_PROBLEMS_TABLE = "CREATE TABLE " + TABLE_NAME_PROBLEMS +
             "(" + COLUMN_NAME_PROBLEM_ID +" INTEGER PRIMARY KEY, " + COLUMN_NAME_PROBLEM +
             " TEXT, "+ COLUMN_NAME_ANSWER +" TEXT, " + COLUMN_NAME_BOOK_ID + " INTEGER)";
+    private static final String SQL_CREATE_BOOK_LOGS_TABLE = "CREATE TABLE " + TABLE_NAME_BOOK_LOGS +
+            "(" + COLUMN_NAME_LOG_ID +" INTEGER PRIMARY KEY, " + COLUMN_NAME_ACCURACY_RATE +
+            " REAL, " + COLUMN_NAME_BOOK_ID + " INTEGER)";
     private static final String SQL_CREATE_USER_PROFILE_TABLE = "CREATE TABLE " + TABLE_NAME_USER_PROFILE +
             "(" + COLUMN_NAME_TREE_POINT+ " INTEGER, " + COLUMN_NAME_TREE_VALUE + " INTEGER)";
 
     private static final String SQL_DELETE_BOOKS = "DROP TABLE " + TABLE_NAME_BOOKS;
     private static final String SQL_DELETE_PROBLEMS = "DROP TABLE " + TABLE_NAME_PROBLEMS;
+    private static final String SQL_DELETE_BOOK_LOGS = "DROP TABLE " + TABLE_NAME_BOOK_LOGS;
     private static final String SQL_DELETE_USER_PROFILE = "DROP TABLE " + TABLE_NAME_USER_PROFILE;
 
     private DBOpenHelper(Context context) {
@@ -43,6 +47,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_BOOKS_TABLE);
         db.execSQL(SQL_CREATE_PROBLEMS_TABLE);
         db.execSQL(SQL_CREATE_USER_PROFILE_TABLE);
+        db.execSQL(SQL_CREATE_BOOK_LOGS_TABLE);
 
         ContentValues profValues = new ContentValues();
         profValues.put(COLUMN_NAME_TREE_POINT,0);
@@ -57,6 +62,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_BOOKS);
         db.execSQL(SQL_DELETE_PROBLEMS);
         db.execSQL(SQL_DELETE_USER_PROFILE);
+        db.execSQL(SQL_DELETE_BOOK_LOGS);
+
         onCreate(db);
     }
 
@@ -65,10 +72,13 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
+    //テストデータをインサート
     private void putTestCase(SQLiteDatabase db){
         ContentValues bookValues = new ContentValues();
         ContentValues problemValues = new ContentValues();
+        ContentValues logValues = new ContentValues();
 
+        //BOOKSテーブル
         bookValues.put(COLUMN_NAME_BOOK_NAME, "英語");
         db.insert(TABLE_NAME_BOOKS, null, bookValues);
         bookValues.put(COLUMN_NAME_BOOK_NAME, "漢字　読み");
@@ -78,6 +88,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         bookValues.put(COLUMN_NAME_BOOK_NAME, "日本史");
         db.insert(TABLE_NAME_BOOKS, null, bookValues);
 
+        //PROBLEMSテーブル
         problemValues.put(COLUMN_NAME_PROBLEM,"りんご");
         problemValues.put(COLUMN_NAME_ANSWER,"apple");
         problemValues.put(COLUMN_NAME_BOOK_ID,1);
@@ -130,5 +141,22 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         problemValues.put(COLUMN_NAME_ANSWER,"天保の改革");
         problemValues.put(COLUMN_NAME_BOOK_ID,4);
         db.insert(TABLE_NAME_PROBLEMS,null,problemValues);
+
+        //BOOK_LOGSテーブル
+        logValues.put(COLUMN_NAME_ACCURACY_RATE, 78.5);
+        logValues.put(COLUMN_NAME_BOOK_ID, 1);
+        db.insert(TABLE_NAME_BOOK_LOGS, null, logValues);
+        logValues.put(COLUMN_NAME_ACCURACY_RATE, 88.5);
+        logValues.put(COLUMN_NAME_BOOK_ID, 1);
+        db.insert(TABLE_NAME_BOOK_LOGS, null, logValues);
+        logValues.put(COLUMN_NAME_ACCURACY_RATE, 90.5);
+        logValues.put(COLUMN_NAME_BOOK_ID, 1);
+        db.insert(TABLE_NAME_BOOK_LOGS, null, logValues);
+        logValues.put(COLUMN_NAME_ACCURACY_RATE, 55.5);
+        logValues.put(COLUMN_NAME_BOOK_ID, 1);
+        db.insert(TABLE_NAME_BOOK_LOGS, null, logValues);
+        logValues.put(COLUMN_NAME_ACCURACY_RATE, 23.5);
+        logValues.put(COLUMN_NAME_BOOK_ID, 1);
+        db.insert(TABLE_NAME_BOOK_LOGS, null, logValues);
     }
 }

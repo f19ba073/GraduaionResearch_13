@@ -45,7 +45,7 @@ public class VocabularyBookActivity extends AppCompatActivity {
                 }
 
                 //メニューボタンをクリックされた場合
-                final String[] menus = {"編集", "削除", "タイトル編集","キャンセル"};
+                final String[] menus = {"編集", "削除", "タイトル編集","統計","キャンセル"};
                 new AlertDialog.Builder(VocabularyBookActivity.this)
                         .setTitle("Selector")
                         .setItems(menus, new DialogInterface.OnClickListener() {
@@ -53,7 +53,8 @@ public class VocabularyBookActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which){
                                     case 0:
-                                        screenTransition(adapter.getItem(position), ProblemListActivity.class);
+                                        screenTransition(adapter.getItem(position),
+                                                ProblemListActivity.class);
                                         break;
                                     case 1:
                                         showDeleteCheck(position);
@@ -62,6 +63,10 @@ public class VocabularyBookActivity extends AppCompatActivity {
                                         showTitleEdit(position);
                                         break;
                                     case 3:
+                                        screenTransition(adapter.getItem(position),
+                                                VocabularyBookGraphActivity.class);
+                                        break;
+                                    case 4:
                                         break;
                                 }
                             }
@@ -98,7 +103,7 @@ public class VocabularyBookActivity extends AppCompatActivity {
 
     }
 
-    //問題一覧画面に遷移
+    //別画面に遷移
     private void screenTransition(VocabularyBook vocabularyBook, Class nextScreen){
         Intent intent = new Intent(getApplication(), nextScreen);
         intent.putExtra("VocabularyBook", vocabularyBook);
@@ -169,9 +174,7 @@ public class VocabularyBookActivity extends AppCompatActivity {
     private void addList(String newTitle){
        VocabularyBook createNewBook =  adapter.add(getApplication(), newTitle);
         adapter.notifyDataSetChanged();
-        Intent intent = new Intent(getApplication(), ProblemListActivity.class);
-        intent.putExtra("VocabularyBook", createNewBook);
-        startActivity(intent);
+        screenTransition(createNewBook, ProblemListActivity.class);
     }
 
 }
