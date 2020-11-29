@@ -57,16 +57,15 @@ public class VocabularyBookGraphActivity extends AppCompatActivity {
     private LineData createLineData(int book_id){
         List<VocabularyBookLog> logs;
 
-        //getListを実装したらこのコードを使用
-        //logs = VocabularyBookLog.getList(getApplication(), book_id);
+        logs = VocabularyBookLog.getList(getApplication(), book_id);
 
         //サンプルデータ
-        logs = new ArrayList<>();
+        /*logs = new ArrayList<>();
         logs.add(new VocabularyBookLog(1, 80.0f, 1));
         logs.add(new VocabularyBookLog(2, 75.0f, 1));
         logs.add(new VocabularyBookLog(3, 88.5f, 1));
         logs.add(new VocabularyBookLog(4, 70.6f, 1));
-        logs.add(new VocabularyBookLog(5, 95.8f, 1));
+        logs.add(new VocabularyBookLog(5, 95.8f, 1));*/
 
         Collections.sort(logs);
 
@@ -79,14 +78,11 @@ public class VocabularyBookGraphActivity extends AppCompatActivity {
 
         //Entryのリストを集約して折れ線グラフに変換
         LineDataSet lineDataSet = new LineDataSet(entryList, "正解率");
-        lineDataSet.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                return String.format("%.2f%%", value);
-            }
-        });
+
+        //折れ線グラフ
+        lineDataSet.setDrawValues(false);
         lineDataSet.setValueTextSize(10f);
-        lineDataSet.setColor(0xFF00FF00);
+        lineDataSet.setColor(Color.GREEN);
         lineDataSet.setLineWidth(2f);
         lineDataSet.setDrawCircles(false);
         lineDataSet.setDrawFilled(true);
