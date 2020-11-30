@@ -37,18 +37,7 @@ public class GamePlayActivity extends AppCompatActivity{
 
     private OnClickNextProblem onClickNextProblem = new OnClickNextProblem();
     private OnClickResultCheck onClickResultCheck = new OnClickResultCheck();
-    private View.OnClickListener onClickTransitionResult = new View.OnClickListener(){
-        @Override
-        public void onClick(View v) {
-
-            //正解率を計算してオブジェクト作成
-            VocabularyBookLog.createNewLog(getApplication(),
-                    (float)correctCount / results.size() * 100,
-                    currentVocabularyBook.getBook_id());
-
-            initializeGameResult();
-        }
-    };
+    private View.OnClickListener onClickTransitionResult = new OnClickTransitionResult();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,6 +176,30 @@ public class GamePlayActivity extends AppCompatActivity{
 
             problemsIndex++;
             transitionNext();
+        }
+    }
+
+    private class OnClickTransitionResult implements View.OnClickListener{
+        @Override
+        public void onClick(View v){
+
+            //木の成長率計算
+            TreeInformation tree = TreeInformation.getInstance(getApplication());
+            tree.addTreeRate(getApplication(),
+                    TreeInformation.TREE_RATE_PLUS_POINT * correctCount);
+
+            //成長率が100%に達していたら成長率を初期化して、木の本数をインクリメント
+            if(tree.getTreeRate() > TreeInformation.MAX_TREE_RATE){
+                tree.setTreeRate(getApplication(), 0);
+                tree.incrementTreeCount(getApplication());
+            }
+
+            //正解率を計算してDBに登録
+            VocabularyBookLog.createNewLog(getApplication(),
+                    (float)correctCount / results.size() * 100,
+                    currentVocabularyBook.getBook_id());
+
+            initializeGameResult();
         }
     }
 }
