@@ -61,7 +61,7 @@ public class VocabularyBookLog implements Comparable<VocabularyBookLog> {
         return list;
     }
 
-    //TODO 新しいオブジェクトを生成してDBに登録
+    //新しいオブジェクトを生成してDBに登録
     public static synchronized VocabularyBookLog createNewLog
     (Context context, float rate, int book_id){
 
@@ -75,6 +75,7 @@ public class VocabularyBookLog implements Comparable<VocabularyBookLog> {
         DBOpenHelper helper = DBOpenHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
 
+        //DBに登録
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME_LOG_ID, log_id);
         values.put(COLUMN_NAME_ACCURACY_RATE, rate);
@@ -84,6 +85,7 @@ public class VocabularyBookLog implements Comparable<VocabularyBookLog> {
         return log;
     }
 
+    //DBに登録されていないIDを取得
     private static int findNewId(Context context){
         DBOpenHelper helper = DBOpenHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
