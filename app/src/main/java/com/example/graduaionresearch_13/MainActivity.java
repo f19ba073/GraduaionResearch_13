@@ -1,12 +1,14 @@
 package com.example.graduaionresearch_13;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,7 +28,17 @@ public class MainActivity extends AppCompatActivity {
         int percent = 1;
         imageView1.setImageResource(illust[percent]);
 
+        TreeInformation tree = TreeInformation.getInstance(getApplication());
 
+        final TextView textView = findViewById(R.id.tree_rate);
+        textView.setText("成長率" + tree.getTreeRate() + "％");
+
+        ProgressBar progressBar = findViewById(R.id.tree_rate_bar);
+        progressBar.setMax(100);
+        progressBar.setProgress((int)tree.getTreeRate());
+
+        TextView treeCount = findViewById(R.id.tree_count_text);
+        treeCount.setText("×" + tree.getTreeCount());
 
         final Button start_button = findViewById(R.id.start_button);
         start_button.setOnClickListener(new View.OnClickListener() {

@@ -1,12 +1,25 @@
 package com.example.graduaionresearch_13;
 
 import android.content.ContentValues;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import static com.example.graduaionresearch_13.DBNames.*;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_ACCURACY_RATE;
+import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_ANSWER;
+import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_BOOK_ID;
+import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_BOOK_NAME;
+import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_ID;
+import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_LOG_ID;
+import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_PROBLEM;
+import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_PROBLEM_ID;
+import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_PROF_ID;
+import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_TREE_RATE;
+import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_TREE_COUNT;
+import static com.example.graduaionresearch_13.DBNames.TABLE_NAME_BOOKS;
+import static com.example.graduaionresearch_13.DBNames.TABLE_NAME_BOOK_LOGS;
+import static com.example.graduaionresearch_13.DBNames.TABLE_NAME_PROBLEMS;
+import static com.example.graduaionresearch_13.DBNames.TABLE_NAME_USER_PROFILE;
 
 public class DBOpenHelper extends SQLiteOpenHelper {
 
@@ -24,7 +37,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
             "(" + COLUMN_NAME_LOG_ID +" INTEGER PRIMARY KEY, " + COLUMN_NAME_ACCURACY_RATE +
             " REAL, " + COLUMN_NAME_BOOK_ID + " INTEGER)";
     private static final String SQL_CREATE_USER_PROFILE_TABLE = "CREATE TABLE " + TABLE_NAME_USER_PROFILE +
-            "(" + COLUMN_NAME_TREE_POINT+ " INTEGER, " + COLUMN_NAME_TREE_VALUE + " INTEGER)";
+            "(" + COLUMN_NAME_PROF_ID +" INTEGER PRIMARY KEY, " +
+            COLUMN_NAME_TREE_RATE + " REAL, " + COLUMN_NAME_TREE_COUNT + " INTEGER)";
 
     private static final String SQL_DELETE_BOOKS = "DROP TABLE " + TABLE_NAME_BOOKS;
     private static final String SQL_DELETE_PROBLEMS = "DROP TABLE " + TABLE_NAME_PROBLEMS;
@@ -50,8 +64,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_BOOK_LOGS_TABLE);
 
         ContentValues profValues = new ContentValues();
-        profValues.put(COLUMN_NAME_TREE_POINT,0);
-        profValues.put(COLUMN_NAME_TREE_VALUE,0);
+        profValues.put(COLUMN_NAME_TREE_RATE,0);
+        profValues.put(COLUMN_NAME_TREE_COUNT,0);
 
         putTestCase(db);
         db.insert(TABLE_NAME_USER_PROFILE,null,profValues);
