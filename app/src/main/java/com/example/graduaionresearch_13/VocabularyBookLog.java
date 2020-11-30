@@ -1,5 +1,6 @@
 package com.example.graduaionresearch_13;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,8 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.graduaionresearch_13.DBNames.BOOK_LOGS_COLUMNS;
+import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_ACCURACY_RATE;
 import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_BOOK_ID;
+import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_ID;
+import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_LOG_ID;
 import static com.example.graduaionresearch_13.DBNames.PROBLEM_COLUMNS;
+import static com.example.graduaionresearch_13.DBNames.TABLE_NAME_BOOKS;
 import static com.example.graduaionresearch_13.DBNames.TABLE_NAME_BOOK_LOGS;
 import static com.example.graduaionresearch_13.DBNames.TABLE_NAME_PROBLEMS;
 
@@ -58,8 +63,38 @@ public class VocabularyBookLog implements Comparable<VocabularyBookLog> {
 
     //TODO 新しいオブジェクトを生成してDBに登録
     public static synchronized VocabularyBookLog createNewLog
-    (Context context, double rate, int book_id){
-        return null;
+    (Context context, float rate, int book_id){
+
+        int log_id = findNewId(context);
+        VocabularyBookLog log = new VocabularyBookLog(
+                log_id,
+                rate,
+                book_id
+                );
+
+        DBOpenHelper helper = DBOpenHelper.getInstance(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME_LOG_ID, log_id);
+        values.put(COLUMN_NAME_ACCURACY_RATE, rate);
+        values.put(COLUMN_NAME_BOOK_ID, book_id);
+        db.insert(TABLE_NAME_BOOK_LOGS, null, values);
+
+        return log;
+    }
+
+    private static int findNewId(Context context){
+        DBOpenHelper helper = DBOpenHelper.getInstance(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_NAME_BOOK_LOGS,
+                new String[]{"MAX(" + COLUMN_NAME_LOG_ID + ") AS MAX"},
+                null, null, null, null, null);
+        if(cursor == null){return 0;}
+
+        cursor.moveToFirst();
+        int index = cursor.getInt(0);
+        return index + 1;
     }
 
     public int getId(){
