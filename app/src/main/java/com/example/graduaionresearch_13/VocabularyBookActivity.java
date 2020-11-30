@@ -31,8 +31,6 @@ public class VocabularyBookActivity extends AppCompatActivity {
         adapter = new VocabularyBookAdapter(this.getApplicationContext(),
                 R.layout.vocabularybook_row, VocabularyBook.getList(getApplication()));
 
-        // ListViewにadapterをセット
-        listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -74,6 +72,7 @@ public class VocabularyBookActivity extends AppCompatActivity {
                         .show();
             }
         });
+        listView.setAdapter(adapter);
 
         FloatingActionButton fab = findViewById(R.id.add_vocabulary);
         fab.setOnClickListener(new View.OnClickListener() {
