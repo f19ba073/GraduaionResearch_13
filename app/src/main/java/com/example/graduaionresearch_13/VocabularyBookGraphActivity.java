@@ -1,5 +1,6 @@
 package com.example.graduaionresearch_13;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -26,6 +27,16 @@ public class VocabularyBookGraphActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vocabulary_book_graph);
 
+        Intent intent = getIntent();
+        currentVocabularyBook = (VocabularyBook) (intent.getSerializableExtra("VocabularyBook"));
+        setTitle(currentVocabularyBook.getBook_name());
+
+        int book_id = currentVocabularyBook.getBook_id();
+        List<VocabularyBookLog> list = VocabularyBookLog.getList(getApplication(), book_id);
+        drawGraph(list);
+    }
+
+    private void drawGraph(List<VocabularyBookLog> list){
         //グラフの設定
         LineChart lineChart = (LineChart) findViewById(R.id.accuracy_rate_graph);
         lineChart.getDescription().setEnabled(false);
@@ -50,23 +61,11 @@ public class VocabularyBookGraphActivity extends AppCompatActivity {
         yAxis.setAxisMinimum(0.0f);
 
         //テストのため1を引数に指定
-        lineChart.setData(createLineData(1));
+        lineChart.setData(createLineData(list));
         lineChart.animateY(2500);
     }
 
-    private LineData createLineData(int book_id){
-        List<VocabularyBookLog> logs;
-
-        logs = VocabularyBookLog.getList(getApplication(), book_id);
-
-        //サンプルデータ
-        /*logs = new ArrayList<>();
-        logs.add(new VocabularyBookLog(1, 80.0f, 1));
-        logs.add(new VocabularyBookLog(2, 75.0f, 1));
-        logs.add(new VocabularyBookLog(3, 88.5f, 1));
-        logs.add(new VocabularyBookLog(4, 70.6f, 1));
-        logs.add(new VocabularyBookLog(5, 95.8f, 1));*/
-
+    private LineData createLineData(List<VocabularyBookLog> logs){
         Collections.sort(logs);
 
         //正解率のデータをEntry型に変換
