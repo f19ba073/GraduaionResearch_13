@@ -13,13 +13,16 @@ public class TreeInformation {
     private int treeCount;
     private float treeRate;
 
+    public static final float MAX_TREE_RATE = 100f;
+    public static final float TREE_RATE_PLUS_POINT = 0.2f;
+
     private TreeInformation(int id, float treeRate, int treeValue) {
         this.id = id;
         this.treeRate = treeRate;
         this.treeCount = treeValue;
     }
 
-    public static TreeInformation getInstance(Context context){
+    public static synchronized TreeInformation getInstance(Context context){
         if(treeInformation == null){
 
             //DBからデータ取得
