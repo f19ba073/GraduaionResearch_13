@@ -24,6 +24,7 @@ public class GamePlayActivity extends AppCompatActivity{
     private List<Result> results;
     private VocabularyBook currentVocabularyBook;
     private CountDownTimer timer;
+    private int correctCount;
 
     private Button nextTransitionButton;
     private Button endButton;
@@ -39,6 +40,12 @@ public class GamePlayActivity extends AppCompatActivity{
     private View.OnClickListener onClickTransitionResult = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
+
+            //正解率を計算してオブジェクト作成
+            VocabularyBookLog.createNewLog(getApplication(),
+                    (float)correctCount / results.size() * 100,
+                    currentVocabularyBook.getBook_id());
+
             initializeGameResult();
         }
     };
@@ -97,6 +104,9 @@ public class GamePlayActivity extends AppCompatActivity{
             }
         };
 
+        //正解数初期化
+        correctCount = 0;
+
         setProblemWithIndex(problemsIndex);
         nextTransitionButton.setOnClickListener(onClickResultCheck);
 
@@ -123,6 +133,7 @@ public class GamePlayActivity extends AppCompatActivity{
 
     private void setResult(String editedAnswer, boolean isCorrect){
         if(isCorrect){
+            correctCount++;
             correctOrWrongImage.setImageResource(R.drawable.ic_correct);
         }else{
             correctOrWrongImage.setImageResource(R.drawable.ic_wrong);
