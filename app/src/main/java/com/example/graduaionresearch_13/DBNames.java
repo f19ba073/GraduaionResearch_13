@@ -14,7 +14,7 @@ public class DBNames {
     public static final String COLUMN_NAME_BOOK_ID = "book_id";
     public static final String COLUMN_NAME_LOG_ID = "log_id";
     public static final String COLUMN_NAME_ACCURACY_RATE = "accuracy_rate";
-    public static final String COLUMN_NAME_TREE_POINT = "tree_point";
+    public static final String COLUMN_NAME_TREE_RATE = "tree_rate";
     public static final String COLUMN_NAME_TREE_VALUE = "tree_value";
 
     public static final String[] BOOKS_COLUMNS = {
