@@ -38,7 +38,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
             " REAL, " + COLUMN_NAME_BOOK_ID + " INTEGER)";
     private static final String SQL_CREATE_USER_PROFILE_TABLE = "CREATE TABLE " + TABLE_NAME_USER_PROFILE +
             "(" + COLUMN_NAME_PROF_ID +" INTEGER PRIMARY KEY, " +
-            COLUMN_NAME_TREE_RATE + " INTEGER, " + COLUMN_NAME_TREE_COUNT + " INTEGER)";
+            COLUMN_NAME_TREE_RATE + " REAL, " + COLUMN_NAME_TREE_COUNT + " INTEGER)";
 
     private static final String SQL_DELETE_BOOKS = "DROP TABLE " + TABLE_NAME_BOOKS;
     private static final String SQL_DELETE_PROBLEMS = "DROP TABLE " + TABLE_NAME_PROBLEMS;

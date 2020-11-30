@@ -13,7 +13,7 @@ public class TreeInformation {
     private int treeCount;
     private float treeRate;
 
-    private TreeInformation(int id, int treeRate, int treeValue) {
+    private TreeInformation(int id, float treeRate, int treeValue) {
         this.id = id;
         this.treeRate = treeRate;
         this.treeCount = treeValue;
@@ -33,7 +33,7 @@ public class TreeInformation {
                 selectData.moveToNext();
                 treeInformation = new TreeInformation(
                         selectData.getInt(0),
-                        selectData.getInt(1),
+                        selectData.getFloat(1),
                         selectData.getInt(2)
                 );
             }finally {
@@ -47,29 +47,33 @@ public class TreeInformation {
         this.treeRate += delta;
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME_TREE_RATE, this.treeRate);
+        updateForDataBase(context, values);
     }
 
     public void setTreeRate(Context context, float delta){
         this.treeRate = delta;
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME_TREE_RATE, this.treeRate);
+        updateForDataBase(context, values);
     }
 
     public void incrementTreeCount(Context context){
         this.treeCount++;
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME_TREE_COUNT, this.treeRate);
+        updateForDataBase(context, values);
     }
 
-    private void putForDataBase(Context context, ContentValues values, String tableName){
+    //DBの値を更新
+    private void updateForDataBase(Context context, ContentValues values){
         DBOpenHelper helper = DBOpenHelper.getInstance(context);
         SQLiteDatabase db = helper.getWritableDatabase();
-        db.update(tableName,
+        db.update(TABLE_NAME_USER_PROFILE,
                 values,
                 COLUMN_NAME_PROF_ID + " = " + this.getId(),
                 null);
     }
-    
+
     public int getId(){
         return this.id;
     }
