@@ -13,8 +13,9 @@ import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_ID;
 import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_LOG_ID;
 import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_PROBLEM;
 import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_PROBLEM_ID;
+import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_PROF_ID;
 import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_TREE_RATE;
-import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_TREE_VALUE;
+import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_TREE_COUNT;
 import static com.example.graduaionresearch_13.DBNames.TABLE_NAME_BOOKS;
 import static com.example.graduaionresearch_13.DBNames.TABLE_NAME_BOOK_LOGS;
 import static com.example.graduaionresearch_13.DBNames.TABLE_NAME_PROBLEMS;
@@ -36,7 +37,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
             "(" + COLUMN_NAME_LOG_ID +" INTEGER PRIMARY KEY, " + COLUMN_NAME_ACCURACY_RATE +
             " REAL, " + COLUMN_NAME_BOOK_ID + " INTEGER)";
     private static final String SQL_CREATE_USER_PROFILE_TABLE = "CREATE TABLE " + TABLE_NAME_USER_PROFILE +
-            "(" + COLUMN_NAME_TREE_RATE+ " INTEGER, " + COLUMN_NAME_TREE_VALUE + " INTEGER)";
+            "(" + COLUMN_NAME_PROF_ID +" INTEGER PRIMARY KEY, " +
+            COLUMN_NAME_TREE_RATE + " INTEGER, " + COLUMN_NAME_TREE_COUNT + " INTEGER)";
 
     private static final String SQL_DELETE_BOOKS = "DROP TABLE " + TABLE_NAME_BOOKS;
     private static final String SQL_DELETE_PROBLEMS = "DROP TABLE " + TABLE_NAME_PROBLEMS;
@@ -63,7 +65,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
         ContentValues profValues = new ContentValues();
         profValues.put(COLUMN_NAME_TREE_RATE,0);
-        profValues.put(COLUMN_NAME_TREE_VALUE,0);
+        profValues.put(COLUMN_NAME_TREE_COUNT,0);
 
         putTestCase(db);
         db.insert(TABLE_NAME_USER_PROFILE,null,profValues);
