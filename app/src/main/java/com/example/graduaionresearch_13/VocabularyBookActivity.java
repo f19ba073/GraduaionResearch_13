@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -22,6 +23,12 @@ public class VocabularyBookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vocabulary_book_list);
+
+        // ツールバーをアクションバーとしてセット
+        final Toolbar toolbar =  findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("こんにちは");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // ListViewのインスタンスを生成
         ListView listView = (ListView) findViewById(R.id.listView);
@@ -100,6 +107,12 @@ public class VocabularyBookActivity extends AppCompatActivity {
             }
         });
 
+    }
+    //ツールバーバックボタン
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
     }
 
     //別画面に遷移
