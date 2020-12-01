@@ -1,24 +1,18 @@
 package com.example.graduaionresearch_13;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.*;
+import java.util.List;
 
 public class ProblemListActivity extends AppCompatActivity {
 
@@ -146,11 +140,17 @@ public class ProblemListActivity extends AppCompatActivity {
     }
 
     private void edit(int position, String problem, String answer){
+        if(problem.isEmpty() || answer.isEmpty()){
+            return;
+        }
         adapter.edit(getApplication(), position, problem, answer);
         adapter.notifyDataSetChanged();
     }
 
     private void add(String problem, String answer){
+        if(answer.isEmpty()){
+            return;
+        }
         adapter.add(getApplication(),problem,answer, currentVocabularyBook.getBook_id());
         adapter.notifyDataSetChanged();
     }
