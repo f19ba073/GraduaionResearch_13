@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setProgress((int)tree.getTreeRate());
 
         TextView treeCount = findViewById(R.id.tree_count_text);
-        treeCount.setText("×" + tree.getTreeCount());
+        treeCount.setText(" × " + tree.getTreeCount());
 
         final Button start_button = findViewById(R.id.start_button);
         start_button.setOnClickListener(new View.OnClickListener() {
