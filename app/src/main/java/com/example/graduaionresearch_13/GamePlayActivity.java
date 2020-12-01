@@ -1,6 +1,7 @@
 package com.example.graduaionresearch_13;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -47,6 +48,13 @@ public class GamePlayActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_start);
+
+        // ツールバーをアクションバーとしてセット
+        final Toolbar toolbar =  findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("こんにちは");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         problemsIndex = 0;
 
         //単語帳一覧から渡されたVocabularyBookオブジェクト受け取り
@@ -64,6 +72,12 @@ public class GamePlayActivity extends AppCompatActivity{
                 initializeGamePlay();
             }
         });
+    }
+    //ツールバーバックボタン
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
     }
 
     //問題回答画面の初期化
