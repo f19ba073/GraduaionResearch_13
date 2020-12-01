@@ -179,12 +179,18 @@ public class VocabularyBookActivity extends AppCompatActivity {
     }
 
     private void edit(int position, String newTitle){
+        if(newTitle.isEmpty()){
+            return;
+        }
         adapter.edit(getApplication(), position, newTitle);
         adapter.notifyDataSetChanged();
     }
 
     private void addList(String newTitle){
-       VocabularyBook createNewBook =  adapter.add(getApplication(), newTitle);
+        if(newTitle.isEmpty()){
+            return;
+        }
+        VocabularyBook createNewBook =  adapter.add(getApplication(), newTitle);
         adapter.notifyDataSetChanged();
         screenTransition(createNewBook, ProblemListActivity.class);
     }

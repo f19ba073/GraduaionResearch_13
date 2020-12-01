@@ -27,7 +27,7 @@
         android:layout_marginTop="503dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="30dp"
         android:gravity="center_vertical|right"
         android:drawableLeft="@drawable/start2"
         android:text="start    "
@@ -46,7 +46,7 @@
         android:layout_marginTop="503dp"
         android:layout_marginEnd="39dp"
         android:layout_marginRight="39dp"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="30dp"
         android:gravity="center_vertical|right"
         android:drawableLeft="@drawable/hagu"
         android:text="設定      "
@@ -71,15 +71,48 @@
         app:layout_constraintVertical_bias="0.2" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tree_rate"
         android:layout_width="243dp"
-        android:layout_height="65dp"
-        android:text="TextView"
+        android:layout_height="49dp"
+        android:textSize="25dp"
+        android:text=""
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.69" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.78"
+        android:paddingHorizontal="40dp"
+        >
+
+        <TextView
+            android:id="@+id/tree_count_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:drawableLeft="@drawable/tree_icon"
+            />
+        <ProgressBar
+            android:id="@+id/tree_rate_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:layout_gravity="center_vertical"
+            />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

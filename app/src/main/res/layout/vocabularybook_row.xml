@@ -5,37 +5,43 @@
     android:orientation="horizontal"
     android:descendantFocusability="blocksDescendants">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_margin="29dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:textSize="20sp"
-            android:maxEms="10"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:focusableInTouchMode="false"
-            android:focusable="false"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/menu"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:background="@null"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_reader_menu"
-             />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_margin="29dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textSize="20sp"
+                android:maxEms="10"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:focusableInTouchMode="false"
+                android:focusable="false"/>
 
-    </LinearLayout>
+            <ImageButton
+                android:id="@+id/menu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:background="@null"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_reader_menu"
+                 />
 
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>
