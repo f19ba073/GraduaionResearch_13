@@ -27,8 +27,12 @@ public class GamePlayActivity extends AppCompatActivity{
     private CountDownTimer timer;
     private int correctCount;
 
+    private TextView tenth_minute;
+    private TextView first_minute;
+    private TextView tenth_second;
+    private TextView first_second;
+
     private Button nextTransitionButton;
-    private Button endButton;
     private TextView problemTextView;
     private EditText editAnswerText;
     private ImageView correctOrWrongImage;
@@ -49,17 +53,12 @@ public class GamePlayActivity extends AppCompatActivity{
         Intent intent = getIntent();
         currentVocabularyBook = (VocabularyBook)intent.getSerializableExtra("VocabularyBook");
         problems = Problem.getList(getApplication(), currentVocabularyBook.getBook_id());
-        setTitle(currentVocabularyBook.getBook_name());
-
-        // ツールバーをアクションバーとしてセット
-        final Toolbar toolbar =  findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(currentVocabularyBook.getBook_name());
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         problemsIndex = 0;
-
         results = new ArrayList<>(problems.size());
+
+        setTitle(currentVocabularyBook.getBook_name());
+        setToolBar();
+        setTimeCount(10000);
 
         Button start_button = findViewById(R.id.gamestart_button);
         start_button.setOnClickListener(new View.OnClickListener() {
@@ -80,14 +79,10 @@ public class GamePlayActivity extends AppCompatActivity{
     private void initializeGamePlay(){
         setContentView(R.layout.game_play);
 
-        final Toolbar toolbar =  findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(currentVocabularyBook.getBook_name());
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setToolBar();
 
         //xmlからコンポーネント読み込み
         nextTransitionButton = findViewById(R.id.next_transition_button);
-        endButton            = findViewById(R.id.end_button);
         problemTextView      = findViewById(R.id.problem_text_view);
         editAnswerText       = findViewById(R.id.edit_answer_text);
         correctOrWrongImage  = findViewById(R.id.correct_wrong_image);
@@ -125,10 +120,7 @@ public class GamePlayActivity extends AppCompatActivity{
     private void initializeGameResult(){
         setContentView(R.layout.game_result);
 
-        final Toolbar toolbar =  findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(currentVocabularyBook.getBook_name());
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setToolBar();
 
         resultListView = findViewById(R.id.result_listView);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -140,10 +132,18 @@ public class GamePlayActivity extends AppCompatActivity{
         resultListView.setAdapter(adapter);
     }
 
+    private void setToolBar(){
+        final Toolbar toolbar =  findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(currentVocabularyBook.getBook_name());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
     private void setProblemWithIndex(int index){
         problemTextView.setText(problems.get(index).getProblem());
     }
 
+    //正解、不正解の表示と結果の記録
     private void setResult(String editedAnswer, boolean isCorrect){
         if(isCorrect){
             correctCount++;
@@ -169,6 +169,68 @@ public class GamePlayActivity extends AppCompatActivity{
             nextTransitionButton.setOnClickListener(onClickTransitionResult);
             nextTransitionButton.setText("結果");
         }
+    }
+
+    private void setTimeCount(int millis){
+        tenth_minute = findViewById(R.id.tenth_minute_text);
+        first_minute = findViewById(R.id.first_minute_text);
+        tenth_second = findViewById(R.id.tenth_second_text);
+        first_second = findViewById(R.id.first_second_text);
+
+        //分と秒に直して表示
+        millis /= 1000;
+        tenth_minute.setText("" + millis / 600);
+        millis %= 600;
+        first_minute.setText("" + millis / 60);
+        millis %= 60;
+        tenth_second.setText("" + millis / 10);
+        millis %= 10;
+        first_second.setText("" + millis);
+
+        setTimeUpClickLister(R.id.tenth_minute_up, tenth_minute, 0, 9);
+        setTimeUpClickLister(R.id.first_minute_up, first_minute, 0, 9);
+        setTimeUpClickLister(R.id.tenth_second_up, tenth_second, 0, 5);
+        setTimeUpClickLister(R.id.first_second_up, first_second, 0, 9);
+        setTimeDownClickLister(R.id.tenth_minute_down, tenth_minute, 0, 9);
+        setTimeDownClickLister(R.id.first_minute_down, first_minute, 0, 9);
+        setTimeDownClickLister(R.id.tenth_second_down, tenth_second, 0, 5);
+        setTimeDownClickLister(R.id.first_second_down, first_second, 0, 9);
+    }
+
+    private void setTimeUpClickLister(int id, final TextView textView, final int min, final int max){
+        findViewById(id).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                int value = Integer.parseInt(textView.getText().toString());
+                textView.setText("" + increment(value, min, max));
+            }
+        });
+    }
+
+    private void setTimeDownClickLister(int id, final TextView textView, final int min, final int max){
+        findViewById(id).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                int value = Integer.parseInt(textView.getText().toString());
+                textView.setText("" + decrement(value, min, max));
+            }
+        });
+    }
+
+    private int increment(int value, int min, int max){
+        value++;
+        if(value > max){
+            value = min;
+        }
+        return value;
+    }
+
+    private int decrement(int value, int min, int max){
+        value--;
+        if(value < min){
+            value = max;
+        }
+        return value;
     }
 
     private class OnClickNextProblem implements View.OnClickListener{
