@@ -45,19 +45,19 @@ public class GamePlayActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_start);
 
-        // ツールバーをアクションバーとしてセット
-        final Toolbar toolbar =  findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("こんにちは");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        problemsIndex = 0;
-
         //単語帳一覧から渡されたVocabularyBookオブジェクト受け取り
         Intent intent = getIntent();
         currentVocabularyBook = (VocabularyBook)intent.getSerializableExtra("VocabularyBook");
         problems = Problem.getList(getApplication(), currentVocabularyBook.getBook_id());
         setTitle(currentVocabularyBook.getBook_name());
+
+        // ツールバーをアクションバーとしてセット
+        final Toolbar toolbar =  findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(currentVocabularyBook.getBook_name());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        problemsIndex = 0;
 
         results = new ArrayList<>(problems.size());
 
@@ -79,6 +79,11 @@ public class GamePlayActivity extends AppCompatActivity{
     //問題回答画面の初期化
     private void initializeGamePlay(){
         setContentView(R.layout.game_play);
+
+        final Toolbar toolbar =  findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(currentVocabularyBook.getBook_name());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //xmlからコンポーネント読み込み
         nextTransitionButton = findViewById(R.id.next_transition_button);
@@ -119,6 +124,11 @@ public class GamePlayActivity extends AppCompatActivity{
     //結果画面の初期化
     private void initializeGameResult(){
         setContentView(R.layout.game_result);
+
+        final Toolbar toolbar =  findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(currentVocabularyBook.getBook_name());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         resultListView = findViewById(R.id.result_listView);
         LayoutInflater inflater = this.getLayoutInflater();

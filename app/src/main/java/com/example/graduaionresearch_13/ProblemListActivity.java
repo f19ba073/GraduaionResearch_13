@@ -11,12 +11,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.List;
 
 public class ProblemListActivity extends AppCompatActivity {
 
-    private List<Problem> problmes;
     private ProblemAdapter adapter;
     private VocabularyBook currentVocabularyBook;
 
@@ -27,6 +27,12 @@ public class ProblemListActivity extends AppCompatActivity {
         Intent intent = getIntent();
         currentVocabularyBook = (VocabularyBook)intent.getSerializableExtra("VocabularyBook");
 
+        // ツールバーをアクションバーとしてセット
+        final Toolbar toolbar =  findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(currentVocabularyBook.getBook_name());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         findViewById(R.id.add_problem_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,9 +40,9 @@ public class ProblemListActivity extends AppCompatActivity {
             }
         });
 
-        problmes = Problem.getList(getApplication(), currentVocabularyBook.getBook_id());
+        List<Problem> problems = Problem.getList(getApplication(), currentVocabularyBook.getBook_id());
         ListView listView = (ListView) findViewById(R.id.problem_listView);
-        adapter = new ProblemAdapter(getApplicationContext(), R.layout.problem_row, problmes);
+        adapter = new ProblemAdapter(getApplicationContext(), R.layout.problem_row, problems);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
