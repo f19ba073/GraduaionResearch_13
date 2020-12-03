@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:Android="http://schemas.android.com/apk/res/android" >
+    <item>
+        <shape Android:shape="rectangle" Android:padding="10dp">
+            <corners
+                Android:bottomRightRadius="5dp"
+                Android:bottomLeftRadius="5dp"
+                Android:topLeftRadius="5dp"
+                Android:topRightRadius="5dp"/>
+            <gradient
+                Android:startColor="@color/colorMain"
+                Android:endColor="@color/colorMain"/>
+        </shape>
+    </item>
+    <item Android:drawable="@drawable/ic_down" />
+</layer-list>

@@ -45,35 +45,44 @@
                 android:id="@+id/tenth_minute_up"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginHorizontal="2dp"
                 android:layout_column="0"
                 android:layout_row="0"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="@drawable/up_button_layout" />
             <Button
                 android:id="@+id/first_minute_up"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginHorizontal="2dp"
                 android:layout_column="1"
                 android:layout_row="0"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="@drawable/up_button_layout"/>
             <Button
                 android:id="@+id/tenth_second_up"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginHorizontal="2dp"
                 android:layout_column="3"
                 android:layout_row="0"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="@drawable/up_button_layout"/>
             <Button
                 android:id="@+id/first_second_up"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginHorizontal="2dp"
                 android:layout_column="4"
                 android:layout_row="0"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="@drawable/up_button_layout"/>
 
             <TextView
                 android:id="@+id/tenth_minute_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginHorizontal="2dp"
                 android:layout_column="0"
                 android:layout_row="1"
                 android:textSize="70sp"
@@ -120,30 +129,38 @@
                 android:id="@+id/tenth_minute_down"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginHorizontal="2dp"
                 android:layout_column="0"
                 android:layout_row="2"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="@drawable/down_button_layout" />
             <Button
                 android:id="@+id/first_minute_down"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginHorizontal="2dp"
                 android:layout_column="1"
                 android:layout_row="2"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="@drawable/down_button_layout"/>
             <Button
                 android:id="@+id/tenth_second_down"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginHorizontal="2dp"
                 android:layout_column="3"
                 android:layout_row="2"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="@drawable/down_button_layout" />
             <Button
                 android:id="@+id/first_second_down"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginHorizontal="2dp"
                 android:layout_column="4"
                 android:layout_row="2"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="@drawable/down_button_layout" />
 
         </GridLayout>
 
