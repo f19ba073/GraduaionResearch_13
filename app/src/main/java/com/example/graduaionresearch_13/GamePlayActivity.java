@@ -77,6 +77,8 @@ public class GamePlayActivity extends AppCompatActivity{
 
     //問題回答画面の初期化
     private void initializeGamePlay(){
+        int timerMillis = parseTime();
+
         setContentView(R.layout.game_play);
 
         setToolBar();
@@ -89,7 +91,7 @@ public class GamePlayActivity extends AppCompatActivity{
         timerText            = findViewById(R.id.time_text);
 
         //タイマーの初期化
-        timer = new CountDownTimer(10000, 10){
+        timer = new CountDownTimer(timerMillis, 10){
             private SimpleDateFormat dataFormat =
                     new SimpleDateFormat("mm:ss.SSS", Locale.US);
 
@@ -171,6 +173,7 @@ public class GamePlayActivity extends AppCompatActivity{
         }
     }
 
+    //制限時間入力画面に時間を設定する
     private void setTimeCount(int millis){
         tenth_minute = findViewById(R.id.tenth_minute_text);
         first_minute = findViewById(R.id.first_minute_text);
@@ -197,6 +200,19 @@ public class GamePlayActivity extends AppCompatActivity{
         setTimeDownClickLister(R.id.first_second_down, first_second, 0, 9);
     }
 
+    //入力された制限時間をミリ秒に変換
+    private int parseTime(){
+        int millis = 0;
+        millis += Integer.parseInt(tenth_minute.getText().toString()) * 600;
+        millis += Integer.parseInt(first_minute.getText().toString()) * 60;
+        millis += Integer.parseInt(tenth_second.getText().toString()) * 10;
+        millis += Integer.parseInt(first_minute.getText().toString());
+        millis *= 1000;
+
+        return millis;
+    }
+
+    //制限時間入力画面のクリックイベント設定
     private void setTimeUpClickLister(int id, final TextView textView, final int min, final int max){
         findViewById(id).setOnClickListener(new View.OnClickListener(){
             @Override
@@ -207,6 +223,7 @@ public class GamePlayActivity extends AppCompatActivity{
         });
     }
 
+    //制限時間入力画面のクリックイベント設定
     private void setTimeDownClickLister(int id, final TextView textView, final int min, final int max){
         findViewById(id).setOnClickListener(new View.OnClickListener(){
             @Override
