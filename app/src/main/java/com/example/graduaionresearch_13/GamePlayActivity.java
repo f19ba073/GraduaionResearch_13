@@ -190,11 +190,11 @@ public class GamePlayActivity extends AppCompatActivity{
         millis %= 10;
         first_second.setText("" + millis);
 
-        setTimeUpClickLister(R.id.tenth_minute_up, tenth_minute, 0, 9);
+        setTimeUpClickLister(R.id.tenth_minute_up, tenth_minute, 0, 1);
         setTimeUpClickLister(R.id.first_minute_up, first_minute, 0, 9);
         setTimeUpClickLister(R.id.tenth_second_up, tenth_second, 0, 5);
         setTimeUpClickLister(R.id.first_second_up, first_second, 0, 9);
-        setTimeDownClickLister(R.id.tenth_minute_down, tenth_minute, 0, 9);
+        setTimeDownClickLister(R.id.tenth_minute_down, tenth_minute, 0, 1);
         setTimeDownClickLister(R.id.first_minute_down, first_minute, 0, 9);
         setTimeDownClickLister(R.id.tenth_second_down, tenth_second, 0, 5);
         setTimeDownClickLister(R.id.first_second_down, first_second, 0, 9);
