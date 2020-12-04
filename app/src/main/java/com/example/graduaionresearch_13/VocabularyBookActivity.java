@@ -27,7 +27,7 @@ public class VocabularyBookActivity extends AppCompatActivity {
         // ツールバーをアクションバーとしてセット
         final Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("こんにちは");
+        getSupportActionBar().setTitle("問題一覧");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // ListViewのインスタンスを生成
