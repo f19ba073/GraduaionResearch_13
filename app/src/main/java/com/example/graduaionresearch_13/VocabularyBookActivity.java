@@ -89,7 +89,7 @@ public class VocabularyBookActivity extends AppCompatActivity {
                 final View inputView = factory.inflate(R.layout.vocabulary_book_title_edit_diarog, null);
 
                 new android.app.AlertDialog.Builder(VocabularyBookActivity.this)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setIcon(R.drawable.ic_edit)
                         .setTitle("編集")
                         .setView(inputView)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -161,7 +161,7 @@ public class VocabularyBookActivity extends AppCompatActivity {
         final View inputView = factory.inflate(R.layout.vocabulary_book_title_edit_diarog, null);
 
         new android.app.AlertDialog.Builder(VocabularyBookActivity.this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(R.drawable.ic_edit)
                 .setTitle("編集")
                 .setView(inputView)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
