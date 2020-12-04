@@ -88,9 +88,8 @@ public class VocabularyBookActivity extends AppCompatActivity {
                 LayoutInflater factory = LayoutInflater.from(getApplication());
                 final View inputView = factory.inflate(R.layout.vocabulary_book_title_edit_diarog, null);
 
-                new android.app.AlertDialog.Builder(VocabularyBookActivity.this)
-                        .setIcon(R.drawable.ic_edit)
-                        .setTitle("編集")
+                createEditDialogTemplate()
+                        .setTitle("新規")
                         .setView(inputView)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
@@ -98,16 +97,18 @@ public class VocabularyBookActivity extends AppCompatActivity {
                                 addList(newTitle.getText().toString());
                             }
                         })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-
-                            }
-                        })
                         .create().show();
             }
         });
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.update(getApplication());
+    }
+
     //ツールバーバックボタン
     @Override
     public boolean onSupportNavigateUp() {
@@ -160,8 +161,7 @@ public class VocabularyBookActivity extends AppCompatActivity {
         LayoutInflater factory = LayoutInflater.from(this);
         final View inputView = factory.inflate(R.layout.vocabulary_book_title_edit_diarog, null);
 
-        new android.app.AlertDialog.Builder(VocabularyBookActivity.this)
-                .setIcon(R.drawable.ic_edit)
+        createEditDialogTemplate()
                 .setTitle("編集")
                 .setView(inputView)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -169,13 +169,18 @@ public class VocabularyBookActivity extends AppCompatActivity {
                         EditText newTitle = inputView.findViewById(R.id.dialog_edit_title);
                         edit(position, newTitle.getText().toString());
                     }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
+                }).create().show();
+    }
 
-                    }
-                })
-                .create().show();
+    private AlertDialog.Builder createEditDialogTemplate(){
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(VocabularyBookActivity.this)
+                .setIcon(R.drawable.ic_edit)
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {}
+                });
+
+        return builder;
     }
 
     private void edit(int position, String newTitle){
