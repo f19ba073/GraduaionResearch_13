@@ -8,65 +8,73 @@
         android:layout_width="400dp"
         android:layout_height="400dp"
         android:layout_gravity="center">
-
     </ImageView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/problem_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="2.3"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center_horizontal"
-            android:textSize="30sp" />
-
-        <EditText
-            android:id="@+id/edit_answer_text"
-            android:layout_width="272dp"
-            android:layout_height="0dp"
-            android:layout_weight="0.6"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="15dp"
-            android:layout_gravity="center_horizontal"
-            android:ems="10"
-            android:inputType="textPersonName" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            android:background="?attr/colorPrimary">
+        </androidx.appcompat.widget.Toolbar>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="10dp">
 
-            <Button
-                android:id="@+id/end_button"
-                android:layout_width="129dp"
-                android:layout_height="78dp"
-                android:text="終了する"
-                android:textSize="20sp" />
+            <TextView
+                android:id="@+id/problem_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="2.3"
+                android:layout_marginTop="30dp"
+                android:gravity="left"
+                android:layout_gravity="center_horizontal"
+                android:textSize="30sp" />
 
-            <Button
-                android:id="@+id/next_transition_button"
-                android:layout_width="129dp"
-                android:layout_height="78dp"
-                android:layout_marginLeft="40dp"
-                android:text="正解へ"
-                android:textSize="20sp" />
+            <EditText
+                android:id="@+id/edit_answer_text"
+                android:layout_width="272dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.6"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="15dp"
+                android:layout_gravity="center_horizontal"
+                android:ems="10"
+                android:inputType="textPersonName" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/next_transition_button"
+                    android:layout_width="129dp"
+                    android:layout_height="78dp"
+                    android:text="正解へ"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:textSize="18sp" />
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/time_text"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"
-            android:textSize="18sp" />
 
     </LinearLayout>
 </FrameLayout>

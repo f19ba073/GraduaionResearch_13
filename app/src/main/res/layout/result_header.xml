@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:background="#fff"
+    android:background="@color/colorAccent"
     android:elevation="10dp">
     <TextView
         android:id="@+id/result_problem_text"
@@ -46,12 +46,10 @@
         android:maxEms="10"
         android:singleLine="true"
         android:ellipsize="end"/>
-    <ImageView
-        android:id="@+id/result_correct_or_wrong"
+    <View
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_gravity="center"
-        >   </ImageView>
+        >   </View>
 
 </LinearLayout>
