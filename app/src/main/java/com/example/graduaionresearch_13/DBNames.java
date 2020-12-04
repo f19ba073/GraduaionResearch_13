@@ -8,6 +8,7 @@ public class DBNames {
 
     public static final String COLUMN_NAME_ID = "book_id";
     public static final String COLUMN_NAME_BOOK_NAME = "book_name";
+    public static final String COLUMN_NAME_TIME_LIMIT = "time_limit";
     public static final String COLUMN_NAME_PROBLEM_ID = "problem_id";
     public static final String COLUMN_NAME_PROBLEM = "problem";
     public static final String COLUMN_NAME_ANSWER = "answer";
@@ -20,7 +21,8 @@ public class DBNames {
 
     public static final String[] BOOKS_COLUMNS = {
             COLUMN_NAME_BOOK_ID,
-            COLUMN_NAME_BOOK_NAME
+            COLUMN_NAME_BOOK_NAME,
+            COLUMN_NAME_TIME_LIMIT
     };
 
     public static final String[] PROBLEM_COLUMNS = {
