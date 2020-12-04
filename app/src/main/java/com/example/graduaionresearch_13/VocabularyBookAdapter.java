@@ -95,6 +95,12 @@ class VocabularyBookAdapter extends BaseAdapter{
         return new VocabularyBook(book_id, newTitle, VocabularyBook.DEFAULT_TIME_LIMIT);
     }
 
+    public void update(Context context){
+        this.vocabularyBookList.clear();
+        this.vocabularyBookList.addAll(VocabularyBook.getList(context));
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         // texts 配列の要素数
