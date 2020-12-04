@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         // ツールバーをアクションバーとしてセット
         final Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("ホーム");
 
 
         ImageView imageView1 = findViewById(R.id.image_view_1);
