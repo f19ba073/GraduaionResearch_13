@@ -88,10 +88,11 @@ class VocabularyBookAdapter extends BaseAdapter{
 
         bookValues.put(COLUMN_NAME_BOOK_NAME, newTitle);
         bookValues.put(COLUMN_NAME_ID, book_id);
+        bookValues.put(COLUMN_NAME_TIME_LIMIT, VocabularyBook.DEFAULT_TIME_LIMIT);
         db.insert(TABLE_NAME_BOOKS, null, bookValues);
         this.vocabularyBookList.clear();
         this.vocabularyBookList.addAll(VocabularyBook.getList(context));
-        return new VocabularyBook(book_id, newTitle);
+        return new VocabularyBook(book_id, newTitle, VocabularyBook.DEFAULT_TIME_LIMIT);
     }
 
     @Override

@@ -58,7 +58,7 @@ public class GamePlayActivity extends AppCompatActivity{
 
         setTitle(currentVocabularyBook.getBook_name());
         setToolBar();
-        setTimeCount(10000);
+        setTimeCount(currentVocabularyBook.getTime_limit());
 
         Button start_button = findViewById(R.id.gamestart_button);
         start_button.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +77,8 @@ public class GamePlayActivity extends AppCompatActivity{
 
     //問題回答画面の初期化
     private void initializeGamePlay(){
-        int timerMillis = parseTime();
+        currentVocabularyBook.setTime_limit(parseTime());
+        currentVocabularyBook.update(getApplication());
 
         setContentView(R.layout.game_play);
 
@@ -91,7 +92,7 @@ public class GamePlayActivity extends AppCompatActivity{
         timerText            = findViewById(R.id.time_text);
 
         //タイマーの初期化
-        timer = new CountDownTimer(timerMillis, 10){
+        timer = new CountDownTimer(currentVocabularyBook.getTime_limit(), 10){
             private SimpleDateFormat dataFormat =
                     new SimpleDateFormat("mm:ss.SSS", Locale.US);
 

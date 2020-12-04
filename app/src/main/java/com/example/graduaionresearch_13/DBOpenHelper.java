@@ -14,6 +14,7 @@ import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_LOG_ID;
 import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_PROBLEM;
 import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_PROBLEM_ID;
 import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_PROF_ID;
+import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_TIME_LIMIT;
 import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_TREE_RATE;
 import static com.example.graduaionresearch_13.DBNames.COLUMN_NAME_TREE_COUNT;
 import static com.example.graduaionresearch_13.DBNames.TABLE_NAME_BOOKS;
@@ -29,7 +30,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "WordsAppDB.db";
 
     private static final String SQL_CREATE_BOOKS_TABLE = "CREATE TABLE " + TABLE_NAME_BOOKS +
-            "(" + COLUMN_NAME_ID + " INTEGER PRIMARY KEY, " + COLUMN_NAME_BOOK_NAME + " TEXT)";
+            "(" + COLUMN_NAME_ID + " INTEGER PRIMARY KEY, " + COLUMN_NAME_BOOK_NAME + " TEXT, " +
+            COLUMN_NAME_TIME_LIMIT + " INTEGER)";
     private static final String SQL_CREATE_PROBLEMS_TABLE = "CREATE TABLE " + TABLE_NAME_PROBLEMS +
             "(" + COLUMN_NAME_PROBLEM_ID +" INTEGER PRIMARY KEY, " + COLUMN_NAME_PROBLEM +
             " TEXT, "+ COLUMN_NAME_ANSWER +" TEXT, " + COLUMN_NAME_BOOK_ID + " INTEGER)";
@@ -94,12 +96,16 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
         //BOOKSテーブル
         bookValues.put(COLUMN_NAME_BOOK_NAME, "英語");
+        bookValues.put(COLUMN_NAME_TIME_LIMIT,  VocabularyBook.DEFAULT_TIME_LIMIT);
         db.insert(TABLE_NAME_BOOKS, null, bookValues);
         bookValues.put(COLUMN_NAME_BOOK_NAME, "漢字　読み");
+        bookValues.put(COLUMN_NAME_TIME_LIMIT,  VocabularyBook.DEFAULT_TIME_LIMIT);
         db.insert(TABLE_NAME_BOOKS, null, bookValues);
         bookValues.put(COLUMN_NAME_BOOK_NAME, "化学基礎");
+        bookValues.put(COLUMN_NAME_TIME_LIMIT,  VocabularyBook.DEFAULT_TIME_LIMIT);
         db.insert(TABLE_NAME_BOOKS, null, bookValues);
         bookValues.put(COLUMN_NAME_BOOK_NAME, "日本史");
+        bookValues.put(COLUMN_NAME_TIME_LIMIT,  VocabularyBook.DEFAULT_TIME_LIMIT);
         db.insert(TABLE_NAME_BOOKS, null, bookValues);
 
         //PROBLEMSテーブル
