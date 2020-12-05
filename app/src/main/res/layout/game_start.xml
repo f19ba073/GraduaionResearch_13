@@ -30,7 +30,7 @@
             android:layout_gravity="center_horizontal"
             android:fontFamily="sans-serif"
             android:text="問題スタート！！"
-            android:background="@color/colorAccent"
+            android:background="@drawable/accent_color_button"
             android:textSize="25sp"
             android:textColor="@color/colorBase"
             android:textStyle="bold" />

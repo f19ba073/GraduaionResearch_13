@@ -37,7 +37,8 @@
         app:layout_constraintStart_toEndOf="@+id/setting_button"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        android:background="@color/colorAccent"/>
+        android:textColor="@color/colorBase"
+        android:background="@drawable/accent_color_button"/>
 
     <Button
         android:id="@+id/setting_button"
@@ -59,7 +60,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        android:background="@color/colorAccent"/>
+        android:textColor="@color/colorBase"
+        android:background="@drawable/accent_color_button"/>
 
     <ImageView
         android:id="@+id/image_view_1"
@@ -86,7 +88,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.69" />
+        app:layout_constraintVertical_bias="0.69"
+        android:background="@drawable/border_color_main"/>
 
     <LinearLayout
         android:layout_width="match_parent"
