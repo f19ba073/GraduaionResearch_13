@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -29,7 +30,11 @@ public class VocabularyBookGraphActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         currentVocabularyBook = (VocabularyBook) (intent.getSerializableExtra("VocabularyBook"));
-        setTitle(currentVocabularyBook.getBook_name());
+
+        final Toolbar toolbar =  findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(currentVocabularyBook.getBook_name());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         int book_id = currentVocabularyBook.getBook_id();
         List<VocabularyBookLog> list = VocabularyBookLog.getList(getApplication(), book_id);

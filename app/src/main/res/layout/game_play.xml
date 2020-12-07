@@ -38,6 +38,8 @@
                 android:layout_marginHorizontal="15dp"
                 android:gravity="left"
                 android:layout_gravity="center_horizontal"
+                android:breakStrategy="simple"
+                android:padding="20dp"
                 android:textSize="30sp"
                 android:background="@drawable/border_color_main"/>
 
