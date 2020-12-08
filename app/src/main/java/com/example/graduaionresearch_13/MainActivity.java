@@ -25,16 +25,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         ImageView imageView1 = findViewById(R.id.image_view_1);
-        int[] illust = {R.drawable.faketree,
-                            R.drawable.faketree,
-                            R.drawable.faketree,
-                            R.drawable.faketree,
-                            R.drawable.faketree};
-
-        int percent = 1;
-        imageView1.setImageResource(illust[percent]);
+        int[] illust = {R.drawable.tree_seichou01,
+                            R.drawable.tree_seichou02,
+                            R.drawable.tree_seichou03,
+                            R.drawable.tree_seichou04,
+                            R.drawable.tree_seichou05};
 
         TreeInformation tree = TreeInformation.getInstance(getApplication());
+        int percent = ((int)tree.getTreeRate()) / 20;
+        imageView1.setImageResource(illust[percent]);
 
         final TextView textView = findViewById(R.id.tree_rate);
         textView.setText("成長率" + tree.getTreeRate() + "％");
