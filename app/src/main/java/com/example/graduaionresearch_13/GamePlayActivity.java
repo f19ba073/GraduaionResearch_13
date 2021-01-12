@@ -68,6 +68,7 @@ public class GamePlayActivity extends AppCompatActivity{
             }
         });
     }
+
     //ツールバーバックボタン
     @Override
     public boolean onSupportNavigateUp() {
