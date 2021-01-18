@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -72,6 +73,13 @@ public class ProblemListActivity extends AppCompatActivity {
 
     }
 
+    //ツールバーバックボタン
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
+    }
+
     //削除確認画面の出力
     private void showDeleteCheck(final int position) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ProblemListActivity.this)
@@ -97,6 +105,12 @@ public class ProblemListActivity extends AppCompatActivity {
     private void showEditDialog(final int position){
         LayoutInflater factory = LayoutInflater.from(this);
         final View inputView = factory.inflate(R.layout.problem_text_diarog, null);
+
+        Problem problem = adapter.getItem(position);
+        EditText problemEdit = inputView.findViewById(R.id.dialog_edit_problem);
+        EditText answerEdit = inputView.findViewById(R.id.dialog_edit_answer);
+        problemEdit.setText(problem.getProblem());
+        answerEdit.setText(problem.getAnswer());
 
         new AlertDialog.Builder(ProblemListActivity.this)
                 .setIcon(android.R.drawable.ic_dialog_alert)

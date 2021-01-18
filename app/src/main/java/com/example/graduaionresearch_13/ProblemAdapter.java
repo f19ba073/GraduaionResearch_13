@@ -78,7 +78,7 @@ class ProblemAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Problem getItem(int position) {
         return problemList.get(position);
     }
 

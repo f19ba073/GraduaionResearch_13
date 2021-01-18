@@ -161,6 +161,10 @@ public class VocabularyBookActivity extends AppCompatActivity {
         LayoutInflater factory = LayoutInflater.from(this);
         final View inputView = factory.inflate(R.layout.vocabulary_book_title_edit_diarog, null);
 
+        VocabularyBook book = adapter.getItem(position);
+        EditText titleEdit = inputView.findViewById(R.id.dialog_edit_title);
+        titleEdit.setText(book.getBook_name());
+
         createEditDialogTemplate()
                 .setTitle("編集")
                 .setView(inputView)
