@@ -3,11 +3,14 @@ package com.example.graduaionresearch_13;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 import java.text.SimpleDateFormat;
@@ -119,6 +122,13 @@ public class GamePlayActivity extends AppCompatActivity{
 
         setProblemWithIndex(problemsIndex);
         nextTransitionButton.setOnClickListener(onClickResultCheck);
+        editAnswerText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                onClickResultCheck.onClick(v);
+                return true;
+            }
+        });
 
         timer.start();
     }
@@ -262,6 +272,7 @@ public class GamePlayActivity extends AppCompatActivity{
             //問題文、回答領域、〇×表示の初期化
             setProblemWithIndex(problemsIndex);
             editAnswerText.getEditableText().clear();
+            editAnswerText.setEnabled(true);
             correctOrWrongImage.setImageDrawable(null);
 
             //正誤判定のためクリックイベント切り替え
@@ -275,6 +286,10 @@ public class GamePlayActivity extends AppCompatActivity{
     private class OnClickResultCheck implements View.OnClickListener{
         @Override
         public void onClick(View v){
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            editAnswerText.setEnabled(false);
+
             timer.cancel();
             String editedAnswer = editAnswerText.getText().toString();
             String correctAnswer = problems.get(problemsIndex).getAnswer();
