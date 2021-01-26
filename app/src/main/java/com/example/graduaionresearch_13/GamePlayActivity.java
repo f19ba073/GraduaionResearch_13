@@ -52,7 +52,10 @@ public class GamePlayActivity extends AppCompatActivity{
         //単語帳一覧から渡されたVocabularyBookオブジェクト受け取り
         Intent intent = getIntent();
         currentVocabularyBook = (VocabularyBook)intent.getSerializableExtra("VocabularyBook");
+
+        //DBから問題の一覧を取得してシャッフル
         problems = Problem.getList(getApplication(), currentVocabularyBook.getBook_id());
+        Collections.shuffle(problems);
         problemsIndex = 0;
         results = new ArrayList<>(problems.size());
 
