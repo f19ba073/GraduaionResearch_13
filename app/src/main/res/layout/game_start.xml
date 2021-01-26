@@ -39,8 +39,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:layout_gravity="center_horizontal"
-            android:columnCount="5">
+            android:layout_marginHorizontal="10dp"
+            android:layout_gravity="center_horizontal">
 
             <TextView
                 android:layout_width="match_parent"
@@ -48,6 +48,7 @@
                 android:layout_columnSpan="5"
                 android:layout_column="0"
                 android:layout_gravity="center"
+                android:textAlignment="center"
                 android:textSize="40sp"
                 android:text="制限時間" />
 
