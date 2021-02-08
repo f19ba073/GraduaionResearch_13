@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,7 +46,16 @@ public class VocabularyBookActivity extends AppCompatActivity {
 
                 //リスト自体をクリックされた場合
                 if(R.id.menu != id){
-                    screenTransition(adapter.getItem(position), GamePlayActivity.class);
+                    VocabularyBook book = adapter.getItem(position);
+
+                    //単語帳に登録されている問題が0なら警告を表示してリターン
+                    int bookSize = Problem.getList(getApplication(), book.getBook_id()).size();
+                    if(bookSize < 1){
+                        Toast.makeText(getApplication() , "問題が登録されていません", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    screenTransition(book, GamePlayActivity.class);
                     return;
                 }
 
