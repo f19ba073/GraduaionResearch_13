@@ -18,6 +18,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
 
+        initialize();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initialize();
+    }
+
+    private void initialize(){
         // ツールバーをアクションバーとしてセット
         final Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -26,17 +36,17 @@ public class MainActivity extends AppCompatActivity {
 
         ImageView imageView1 = findViewById(R.id.image_view_1);
         int[] illust = {R.drawable.tree_seichou01,
-                            R.drawable.tree_seichou02,
-                            R.drawable.tree_seichou03,
-                            R.drawable.tree_seichou04,
-                            R.drawable.tree_seichou05};
+                R.drawable.tree_seichou02,
+                R.drawable.tree_seichou03,
+                R.drawable.tree_seichou04,
+                R.drawable.tree_seichou05};
 
         TreeInformation tree = TreeInformation.getInstance(getApplication());
         int percent = ((int)tree.getTreeRate()) / 20;
         imageView1.setImageResource(illust[percent]);
 
         final TextView textView = findViewById(R.id.tree_rate);
-        textView.setText("成長率" + tree.getTreeRate() + "％");
+        textView.setText("成長率" + String.format("%.1f", tree.getTreeRate()) + "％");
 
         ProgressBar progressBar = findViewById(R.id.tree_rate_bar);
         progressBar.setMax(100);
